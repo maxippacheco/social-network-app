@@ -1,6 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { useContext } from 'react';
+import { NavIconContext } from './NavIcon';
 
-export const Icon = ({ name }: { name: IconProp }) => {
-  return <FontAwesomeIcon icon={ name } />
+
+export const Icon = () => {
+
+  const { icon } = useContext( NavIconContext );
+
+  return <FontAwesomeIcon icon={ icon.name } size={ icon.size } />
 }

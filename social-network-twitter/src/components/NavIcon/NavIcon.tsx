@@ -1,22 +1,33 @@
+import { createContext } from 'react';
 import { Icon } from './Icon';
 import { NavIconLink } from './NavIconLink';
+import { Icons } from './icons';
 
 interface Props {
-  children: JSX.Element | JSX.Element[];  
-
+  children?: JSX.Element | JSX.Element[];
+  icon: Icons;
+  hover?: string;
+  cursor?: string;
 }
 
-// TODO:
-export const NavIcon = ({ children }: Props) => {
+
+export const NavIconContext = createContext({} as Props);
+const { Provider } = NavIconContext;
+
+
+export const NavIcon = ({ children, hover, cursor, icon }: Props) => {
   return (
-   	<div className="text-4xl m-4 p-2 text-white flex flex-row align-middle hover:cursor-pointer hover:bg-slate-700 hover:rounded-full">
-       { children }
-		</div>
+   	
+    <Provider value={{
+      icon
+    }}>
+      <div className={`text-4xl m-4 p-4 text-white flex flex-row items-center hover:${ cursor } hover:${ hover } hover:rounded-full`}>
+        { children }
+      </div>
+    </Provider> 
   );
 };
-
-
-
+// bg-slate-700
 
 NavIcon.Icon = Icon;
 NavIcon.Title = NavIconLink;
