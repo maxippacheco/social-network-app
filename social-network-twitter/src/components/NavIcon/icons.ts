@@ -14,7 +14,7 @@ export interface Icons {
 export const icons: Icons[] = [
 	{
 		name: faHome,		
-		titlePath: '/login',
+		titlePath: '/',
 		titleText: "Home",
 		size: "xs",
 		cursor: "cursor-pointer",
@@ -22,7 +22,7 @@ export const icons: Icons[] = [
 	},
 	{
 		name: faHashtag,
-		titlePath: '/login',
+		titlePath: '/',
 		titleText: "Explore",
 		size: "xs",
 		cursor: "cursor-pointer",
@@ -30,7 +30,7 @@ export const icons: Icons[] = [
 	},
 	{
 		name: faBell,
-		titlePath: '/login',
+		titlePath: '/',
 		titleText: "Notifications",
 		size: "xs",
 		cursor: "cursor-pointer",
@@ -38,7 +38,7 @@ export const icons: Icons[] = [
 	},
 	{
 		name: faEnvelope,
-		titlePath: '/login',
+		titlePath: '/',
 		titleText: "Messages",
 		size: "xs",
 		cursor: "cursor-pointer",
@@ -46,7 +46,7 @@ export const icons: Icons[] = [
 	},
 	{
 		name: faBookmark,
-		titlePath: '/login',
+		titlePath: '/',
 		titleText: "Bookmarks",
 		size: "xs",
 		cursor: "cursor-pointer",
@@ -54,7 +54,7 @@ export const icons: Icons[] = [
 	},
 	{
 		name: faList,
-		titlePath: '/login',
+		titlePath: '/',
 		titleText: "More options",
 		size: "xs",
 		cursor: "cursor-pointer",

@@ -8,6 +8,7 @@ interface Props {
   icon: Icons;
   hover?: string;
   cursor?: string;
+  onClick?: () => void;
 }
 
 
@@ -15,13 +16,16 @@ export const NavIconContext = createContext({} as Props);
 const { Provider } = NavIconContext;
 
 
-export const NavIcon = ({ children, hover, cursor, icon }: Props) => {
+export const NavIcon = ({ children, hover, cursor, icon, onClick }: Props) => {
   return (
    	
     <Provider value={{
       icon
     }}>
-      <div className={`text-4xl m-4 p-4 text-white flex flex-row items-center hover:${ cursor } hover:${ hover } hover:rounded-full`}>
+      <div 
+        className={`text-4xl m-4 p-4 text-white flex flex-row items-center hover:${ cursor } hover:${ hover } hover:rounded-full`}
+        onClick={ onClick }
+      >
         { children }
       </div>
     </Provider> 

@@ -1,7 +1,7 @@
 import { HomePage } from '../pages/HomePage';
-import { LoginPage } from '../pages/LoginPage';
 import { ProfilePage } from '../pages/ProfilePage';
 import { ChatPage } from '../pages/ChatPage';
+import { AuthRouter } from './AuthRouter';
 
 type JSXElement = () => JSX.Element;
 
@@ -21,9 +21,9 @@ export const routes: Route[] = [
 		name: 'Home-Page'
 	},
 	{
-		to: '/login',
-		path: 'login',
-		Component: LoginPage,
+		to: '/auth/*',
+		path: 'auth/*',
+		Component: AuthRouter,
 		name: 'Login-Page'
 	},
 	{
