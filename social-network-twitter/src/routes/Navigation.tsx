@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { routes } from './routes';
 
 export const Navigation = () => {
@@ -14,15 +14,10 @@ export const Navigation = () => {
     	<div className={wrapper.container}>
 			<BrowserRouter>
 				
-				
-				
-				
 				<Routes>
 					{
 						routes.map( ({ path, Component, to}) => (
-							<>
-								<Route path={ path } element={ <Component /> } key={ to } />
-							</>
+							<Route path={ path } element={ <Component /> } key={ to } />
 						))
 					}
 
