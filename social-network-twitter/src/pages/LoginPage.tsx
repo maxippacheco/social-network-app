@@ -1,7 +1,8 @@
-import { Formik, Field, Form } from 'formik';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { Link } from 'react-router-dom';
 
 import loginBg from '../assets/loginBg.jpg';
+import { CustomInput } from '../components/input/CustomInput';
 
 import { wrapper } from '../styles/auth-styles';
 import { loginValidations } from '../validations/validations';
@@ -28,26 +29,25 @@ export const LoginPage = () => {
             validationSchema={ loginValidations }
           >
             {
-              ({ handleSubmit }) => (
+              ({ handleSubmit, errors }) => (
+
+                // TODO: Do abstractation
                 <Form className={ wrapper.auth__form } onSubmit={ handleSubmit }>
-                  <label className={ wrapper.auth__form_label }>Name:</label>
-                  <Field 
-                    type="text" 
-                    className={ wrapper.auth__form_input } 
-                    name="name"
+                  <CustomInput 
+                    label='Name:'
+                    name='name'
+                    type='text'
                   />
 
-                  <label className={ wrapper.auth__form_label }>Password:</label>
-                  <Field 
-                    type="password" 
-                    className={ wrapper.auth__form_input } 
-                    name="password"
+                  <CustomInput 
+                    label='Password:'
+                    name='password'
+                    type='password'
                   />
 
-                  <label className={ wrapper.auth__form_label }>Confirm Password:</label>
-                  <Field 
+                  <CustomInput
+                    label='Confirm Password:' 
                     type="password" 
-                    className={ wrapper.auth__form_input } 
                     name="password2"
                   />
 
