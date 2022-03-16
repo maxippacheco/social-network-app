@@ -29,7 +29,7 @@ export const Navbar = () => {
         <nav className={ wrapper.navbar__nav }>
 
           <NavIcon icon={ logo }>
-            <NavIcon.Icon />
+            <NavIcon.Icon name={ logo.name } size="1x" />
           </NavIcon>
 
           {
@@ -42,7 +42,7 @@ export const Navbar = () => {
                 onClick={ () => navigate(icon.titlePath)}
 
               >
-                <NavIcon.Icon />
+                <NavIcon.Icon name={icon.name} size={ "xs" } />
                 <NavIcon.Title />
               </NavIcon>
             ))

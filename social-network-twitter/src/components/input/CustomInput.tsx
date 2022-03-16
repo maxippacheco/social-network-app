@@ -1,4 +1,4 @@
-import { wrapper } from '../../styles/auth-styles';
+import { auth_wrapper } from '../../styles/auth-styles';
 import { ErrorMessage, useField } from 'formik';
 
 interface CustomInputProps {
@@ -14,8 +14,8 @@ export const CustomInput = ({ label, ...props}: CustomInputProps ) => {
 
   	return (
 		<>
-   		<label className={ wrapper.auth__form_label } htmlFor={ props.name || props.id /* id = key */ }>{ label }</label>
-      	<input className={ wrapper.auth__form_input } { ...props } { ...field } />
+   		<label className={ auth_wrapper.auth__form_label } htmlFor={ props.name || props.id /* id = key */ }>{ label }</label>
+      	<input className={ auth_wrapper.auth__form_input } { ...props } { ...field } />
    		<ErrorMessage name={ props.name } className='w-2/3 text-left text-lg text-red-500' component='span'  />
 		</>
 

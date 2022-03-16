@@ -12,7 +12,7 @@ export const HomePage = () => {
   const wrapper = {
     container: `w-screen h-screen bg-slate-900 flex flex-row`,
 
-    post__container: `basis-1/2  border-r`,
+    post__container: `basis-1/2  border-r overflow-auto scrollbar-hide`,
     post__main_title: `m-2 text-lg text-white`,
     post__avatar_image: `w-12 h-14 m-2`,
     
@@ -65,12 +65,11 @@ export const HomePage = () => {
           </div>
 
           {/* TODO: SCROLL */}
-          <div className="overflow-hidden">
             <Post />
             <Post />
             <Post />
             <Post />
-          </div>
+            <Post />
         
         </section>
 

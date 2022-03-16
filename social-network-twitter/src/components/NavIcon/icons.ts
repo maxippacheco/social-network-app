@@ -38,7 +38,7 @@ export const icons: Icons[] = [
 	},
 	{
 		name: faEnvelope,
-		titlePath: '/',
+		titlePath: '/chat',
 		titleText: "Messages",
 		size: "xs",
 		cursor: "cursor-pointer",

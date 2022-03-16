@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import loginBg from '../assets/loginBg.jpg';
 import { CustomInput } from '../components/input/CustomInput';
 
-import { wrapper } from '../styles/auth-styles';
+import { auth_wrapper } from '../styles/auth-styles';
 import { loginValidations } from '../validations/validations';
 
 
@@ -13,12 +13,12 @@ export const LoginPage = () => {
   // TODO:RESPONSIVE
 
   return (
-	  <div className={ wrapper.auth__container }>
-      <img src={ loginBg } className={ wrapper.auth__image } />
+	  <div className={ auth_wrapper.auth__container }>
+      <img src={ loginBg } className={ auth_wrapper.auth__image } />
 
-      <div className={ wrapper.auth__side_container }>
-        <div className={ wrapper.auth__form_container }>
-          <h1 className={ wrapper.auth__form_title }>Login</h1>
+      <div className={ auth_wrapper.auth__side_container }>
+        <div className={ auth_wrapper.auth__form_container }>
+          <h1 className={ auth_wrapper.auth__form_title }>Login</h1>
           <Formik
             initialValues={{
               name: '',
@@ -32,7 +32,7 @@ export const LoginPage = () => {
               ({ handleSubmit }) => (
 
                 // Do abstractation
-                <Form className={ wrapper.auth__form } onSubmit={ handleSubmit }>
+                <Form className={ auth_wrapper.auth__form } onSubmit={ handleSubmit }>
                   <CustomInput 
                     label='Name:'
                     name='name'
@@ -51,9 +51,9 @@ export const LoginPage = () => {
                     name="password2"
                   />
 
-                  <Link className={ wrapper.auth__form_link } to='/auth/register'>Don't you have an account?</Link>
+                  <Link className={ auth_wrapper.auth__form_link } to='/auth/register'>Don't you have an account?</Link>
 
-                  <button type="submit" className={ wrapper.auth__form_submit }>Submit</button>
+                  <button type="submit" className={ auth_wrapper.auth__form_submit }>Submit</button>
                 </Form>
 
               )

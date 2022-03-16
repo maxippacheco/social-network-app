@@ -1,17 +1,17 @@
 import loginBg from '../assets/loginBg.jpg';
-import { wrapper } from '../styles/auth-styles';
+import { auth_wrapper } from '../styles/auth-styles';
 import { Link } from 'react-router-dom';
-import { Field, Form, Formik, ErrorMessage } from 'formik';
+import { Field, Form, Formik } from 'formik';
 
 
 export const RegisterPage = () => {
 
 
   return (
-    <div className={wrapper.auth__container}>
-      <div className={wrapper.auth__side_container}>
-        <div className={wrapper.auth__form_container}>
-          <h1 className={wrapper.auth__form_title}>Register</h1>
+    <div className={auth_wrapper.auth__container}>
+      <div className={auth_wrapper.auth__side_container}>
+        <div className={auth_wrapper.auth__form_container}>
+          <h1 className={auth_wrapper.auth__form_title}>Register</h1>
 
           <Formik
             initialValues={{
@@ -24,33 +24,33 @@ export const RegisterPage = () => {
           >
             {
               ({ handleSubmit, errors }) => (
-                <Form className={wrapper.auth__form} onSubmit={ handleSubmit }>
-                  <label className={wrapper.auth__form_label}>Name:</label>
+                <Form className={auth_wrapper.auth__form} onSubmit={ handleSubmit }>
+                  <label className={auth_wrapper.auth__form_label}>Name:</label>
                   <Field 
                     type="text" 
-                    className={wrapper.auth__form_input} 
+                    className={auth_wrapper.auth__form_input} 
                     name="name"
                   />
                   
-                  <label className={wrapper.auth__form_label}>Email:</label>
+                  <label className={auth_wrapper.auth__form_label}>Email:</label>
                   <Field 
                     type="email" 
-                    className={wrapper.auth__form_input} 
+                    className={auth_wrapper.auth__form_input} 
                     name="email"
                   />
 
-                  <label className={wrapper.auth__form_label}>Password:</label>
+                  <label className={auth_wrapper.auth__form_label}>Password:</label>
                   <Field 
                     type="password" 
-                    className={wrapper.auth__form_input} 
+                    className={auth_wrapper.auth__form_input} 
                     name="password"
                   />
 
-                  <Link className={wrapper.auth__form_link} to="/auth/login">
+                  <Link className={auth_wrapper.auth__form_link} to="/auth/login">
                     Do you have an account?
                   </Link>
 
-                  <button type="submit" className={wrapper.auth__form_submit}>
+                  <button type="submit" className={auth_wrapper.auth__form_submit}>
                     Submit
                   </button>
                 </Form>
@@ -62,7 +62,7 @@ export const RegisterPage = () => {
         </div>
       </div>
 
-      <img src={loginBg} className={wrapper.auth__image} />
+      <img src={loginBg} className={auth_wrapper.auth__image} />
 
 
     </div>

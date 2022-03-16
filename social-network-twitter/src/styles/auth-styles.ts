@@ -1,5 +1,5 @@
 
-export const wrapper = {
+export const auth_wrapper = {
   auth__container: 'w-full flex flex-row',
   auth__image: "h-full w-1/2",
   auth__side_container: 'w-1/2 h-full flex justify-center items-center',
