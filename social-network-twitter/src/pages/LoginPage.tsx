@@ -29,9 +29,9 @@ export const LoginPage = () => {
             validationSchema={ loginValidations }
           >
             {
-              ({ handleSubmit, errors }) => (
+              ({ handleSubmit }) => (
 
-                // TODO: Do abstractation
+                // Do abstractation
                 <Form className={ wrapper.auth__form } onSubmit={ handleSubmit }>
                   <CustomInput 
                     label='Name:'

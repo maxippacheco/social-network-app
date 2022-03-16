@@ -6,8 +6,8 @@ import { IconDefinition, SizeProp } from '@fortawesome/fontawesome-svg-core';
 import { NavIconContext } from './NavIcon';
 
 interface Props {
-  name?: IconDefinition;
-  size?: SizeProp;
+  name: IconDefinition;
+  size: SizeProp;
   className?: string;
   onClick?: () => void;
 }

@@ -9,6 +9,6 @@ export const registerValidations = Yup.object({
 export const loginValidations = Yup.object({
 	name:    Yup.string().max(15, 'The max of characters is 15').required('Required'),
 	password: Yup.string().min(6, 'The password must be minimum 6 characters').required('Required'),
-	password2: Yup.string().min(6, 'The password must be minimum 6 characters').required('Required').oneOf([Yup.ref('password'), 'password must match']),
+	password2: Yup.string().min(6, 'The password must be minimum 6 characters').required('Required').oneOf([Yup.ref('password')], 'password must match'),
 
 });

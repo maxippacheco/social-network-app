@@ -3,6 +3,7 @@ import { faWandMagicSparkles } from '@fortawesome/free-solid-svg-icons';
 import UserImage from '../assets/userImage.png';
 import { Navbar } from "../components/navbar/Navbar";
 import { Search } from "../components/search/Search";
+import { Post } from "../components/posts/Post";
 
 export const HomePage = () => {
 
@@ -61,6 +62,14 @@ export const HomePage = () => {
               </div>
               <button className={ wrapper.post__create_submit_button }>Tweet</button>
             </div>
+          </div>
+
+          {/* TODO: SCROLL */}
+          <div className="overflow-hidden">
+            <Post />
+            <Post />
+            <Post />
+            <Post />
           </div>
         
         </section>
