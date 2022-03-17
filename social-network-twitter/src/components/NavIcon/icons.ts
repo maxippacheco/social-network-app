@@ -1,15 +1,5 @@
 import { faList, faBookmark, faEnvelope, faBell, faHashtag, faHome } from '@fortawesome/free-solid-svg-icons';
-import { IconDefinition, SizeProp } from '@fortawesome/fontawesome-svg-core';
-
-
-export interface Icons {
-	name: IconDefinition;
-	titlePath: string;
-	titleText: string;
-	size?: SizeProp;
-	cursor?: string;
-	hover: string;
-}
+import { Icons } from '../interfaces/interfaces';
 
 export const icons: Icons[] = [
 	{

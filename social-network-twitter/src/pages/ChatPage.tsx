@@ -1,3 +1,4 @@
+import { SideBarChatItem } from '../components/chat/SideBarChatItem'
 import { Navbar } from '../components/navbar/Navbar'
 
 export const ChatPage = () => {
@@ -6,9 +7,7 @@ export const ChatPage = () => {
       <Navbar />
 
       {/* User List */}
-      <section className='basis-1/3 border-r'>
-
-
+      <section className='basis-1/3 border-r overflow-auto scrollbar-hide'>
         {/* search bar */}
         <div className='w-full h-36 border-b'>
           <h3 className='text-white m-3 text-bold'>Messages</h3>
@@ -22,9 +21,21 @@ export const ChatPage = () => {
             />
 
           </div>
+
         </div>
-      
-      
+        <SideBarChatItem /> 
+        <SideBarChatItem /> 
+        <SideBarChatItem /> 
+        <SideBarChatItem /> 
+        <SideBarChatItem /> 
+        <SideBarChatItem /> 
+        <SideBarChatItem /> 
+        <SideBarChatItem /> 
+        <SideBarChatItem /> 
+        <SideBarChatItem /> 
+        <SideBarChatItem /> 
+        <SideBarChatItem /> 
+  
       </section>
       
       {/* Chat */}

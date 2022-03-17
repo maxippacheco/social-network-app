@@ -1,6 +1,6 @@
-import { faComment, faDownload, faHeart, faRetweet, faWandMagicSparkles } from '@fortawesome/free-solid-svg-icons';
 import UserImage from '../../assets/userImage.png';
 import { Icon } from '../NavIcon/Icon';
+import { postIcon } from './postsIcons';
 
 
 export const Post = () => {
@@ -17,10 +17,13 @@ export const Post = () => {
 				</p>
 
 				<div className='w-3/4 flex justify-between mt-2 mb-2'>
-					<Icon name={ faHeart }    size="lg" className='text-slate-700' />
-					<Icon name={ faComment }  size="lg" className='text-slate-700' />
-					<Icon name={ faRetweet }  size="lg" className='text-slate-700' />
-					<Icon name={ faDownload } size="lg" className='text-slate-700' />
+					
+					{
+						postIcon.map( ({ name, className, size }) => (
+							<Icon name={ name } className={ className } size={ size } />
+						))
+					}
+
 				</div>
 
 			</div>
