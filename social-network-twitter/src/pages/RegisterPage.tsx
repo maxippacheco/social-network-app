@@ -23,7 +23,7 @@ export const RegisterPage = () => {
             // validationSchema={}
           >
             {
-              ({ handleSubmit, errors }) => (
+              ({ handleSubmit }) => (
                 <Form className={auth_wrapper.auth__form} onSubmit={ handleSubmit }>
                   <label className={auth_wrapper.auth__form_label}>Name:</label>
                   <Field 

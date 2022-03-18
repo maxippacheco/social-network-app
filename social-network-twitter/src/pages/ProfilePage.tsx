@@ -1,8 +1,8 @@
+import { useNavigate } from 'react-router-dom';
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons"
 import { NavIcon } from "../components/NavIcon/NavIcon"
 import banner from '../assets/banner.jpg';
 import userImage from '../assets/userImage.png';
-import { useNavigate } from 'react-router-dom';
 import { Navbar } from "../components/navbar/Navbar";
 import { Search } from "../components/search/Search";
 
@@ -13,6 +13,7 @@ export const ProfilePage = () => {
 
   return (
     <>
+      {/* TODO: CREATE WRAPPER */}
       <Navbar />
       <div className="flex flex-col w-full basis-1/2 border-r">
 

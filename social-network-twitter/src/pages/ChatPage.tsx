@@ -1,3 +1,5 @@
+import { IncomingMessage } from '../components/chat/IncomingMessage'
+import { OutgoingMessage } from '../components/chat/OutgoingMessage'
 import { SideBarChatItem } from '../components/chat/SideBarChatItem'
 import { Navbar } from '../components/navbar/Navbar'
 
@@ -6,6 +8,7 @@ export const ChatPage = () => {
     <>
       <Navbar />
 
+      {/* TODO: CREATE WRAPPER */}
       {/* User List */}
       <section className='basis-1/3 border-r overflow-auto scrollbar-hide'>
         {/* search bar */}
@@ -29,18 +32,23 @@ export const ChatPage = () => {
         <SideBarChatItem /> 
         <SideBarChatItem /> 
         <SideBarChatItem /> 
-        <SideBarChatItem /> 
-        <SideBarChatItem /> 
-        <SideBarChatItem /> 
-        <SideBarChatItem /> 
-        <SideBarChatItem /> 
-        <SideBarChatItem /> 
   
       </section>
       
       {/* Chat */}
-      <section className='basis-1/2 border-r'>
-        hello
+      <section className='basis-1/2 border-r h-full w-full scrollbar-hide overflow-auto'>
+        <IncomingMessage />
+        <OutgoingMessage />
+        <IncomingMessage />
+        <OutgoingMessage />
+        <IncomingMessage />
+        <OutgoingMessage />
+        <IncomingMessage />
+        <OutgoingMessage />
+        <IncomingMessage />
+        <OutgoingMessage />
+        <IncomingMessage />
+        <OutgoingMessage />
       </section>
 
     </>
