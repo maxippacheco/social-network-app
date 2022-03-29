@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 import { Icon } from './Icon';
 import { NavIconLink } from './NavIconLink';
-import { Icons } from './icons';
+import { Icons } from '../../interfaces/interfaces';
 
 interface Props {
   children?: JSX.Element | JSX.Element[];

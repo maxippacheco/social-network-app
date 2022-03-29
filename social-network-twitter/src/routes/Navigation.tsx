@@ -1,5 +1,9 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { PrivateRoute } from './PrivateRoute';
 import { routes } from './routes';
+import { PublicRoute } from './PublicRoute';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
 
 export const Navigation = () => {
 
@@ -8,6 +12,7 @@ export const Navigation = () => {
 
 	}
 
+	const { isLoggedIn } = useSelector((state: RootState) => state.auth);
 	
 
 	return (
@@ -16,8 +21,21 @@ export const Navigation = () => {
 				
 				<Routes>
 					{
-						routes.map( ({ path, Component, to}) => (
-							<Route path={ path } element={ <Component /> } key={ to } />
+						routes.map( ({ path, Component, to, restriction}) => (
+							
+							restriction === 'private' 
+								? 
+								<Route path={ path } element={ 
+									<PrivateRoute isAuthenticated={ isLoggedIn }>
+										<Component /> 
+									</PrivateRoute>
+								} key={ to } />
+								: 
+								<Route path={ path } element={ 
+									<PublicRoute isAuthenticated={ isLoggedIn }>
+										<Component /> 
+									</PublicRoute>
+								} key={ to } />
 						))
 					}
 

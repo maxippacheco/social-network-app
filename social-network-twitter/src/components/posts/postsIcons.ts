@@ -1,5 +1,5 @@
 import { faDownload, faRetweet, faComment, faHeart } from '@fortawesome/free-solid-svg-icons';
-import { PostIcons } from '../interfaces/interfaces';
+import { PostIcons } from '../../interfaces/interfaces';
 
 
 export const postIcon: PostIcons[] = [

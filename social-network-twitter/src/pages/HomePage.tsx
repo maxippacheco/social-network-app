@@ -7,7 +7,6 @@ import { Post } from "../components/posts/Post";
 
 export const HomePage = () => {
 
-  
 
   const wrapper = {
     container: `w-screen h-screen bg-slate-900 flex flex-row`,
@@ -26,6 +25,7 @@ export const HomePage = () => {
 
 
   }
+
 
   return (
     // container
@@ -65,10 +65,6 @@ export const HomePage = () => {
           </div>
 
           {/* TODO: SCROLL */}
-            <Post />
-            <Post />
-            <Post />
-            <Post />
             <Post />
         
         </section>

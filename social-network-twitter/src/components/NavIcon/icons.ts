@@ -1,5 +1,5 @@
 import { faList, faBookmark, faEnvelope, faBell, faHashtag, faHome } from '@fortawesome/free-solid-svg-icons';
-import { Icons } from '../interfaces/interfaces';
+import { Icons } from '../../interfaces/interfaces';
 
 export const icons: Icons[] = [
 	{

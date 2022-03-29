@@ -2,10 +2,14 @@ import loginBg from '../assets/loginBg.jpg';
 import { auth_wrapper } from '../styles/auth-styles';
 import { Link } from 'react-router-dom';
 import { Field, Form, Formik } from 'formik';
+import { fetchWithoutToken } from '../helpers/fetch';
+import { useDispatch } from 'react-redux';
+import { handleRegister } from '../actions/auth';
 
 
 export const RegisterPage = () => {
 
+  const dispatch = useDispatch();
 
   return (
     <div className={auth_wrapper.auth__container}>
@@ -16,20 +20,32 @@ export const RegisterPage = () => {
           <Formik
             initialValues={{
               name: '',
+              username: '',
               email: '',
               password: ''
             }}
-            onSubmit={ ( values ) => console.log( values )}
+            onSubmit={ async({ username, name, password, email }) => {
+              dispatch( handleRegister({ username, name, password, email }) );
+            }}
             // validationSchema={}
           >
             {
               ({ handleSubmit }) => (
                 <Form className={auth_wrapper.auth__form} onSubmit={ handleSubmit }>
+                  {/* TODO: IMPLEMENT MY CUSTOM LABEL */}
                   <label className={auth_wrapper.auth__form_label}>Name:</label>
+                  <Field 
+                    type="name" 
+                    className={auth_wrapper.auth__form_input} 
+                    name="name"
+                    autoComplete="off"
+                  />
+                  <label className={auth_wrapper.auth__form_label}>Username:</label>
                   <Field 
                     type="text" 
                     className={auth_wrapper.auth__form_input} 
-                    name="name"
+                    name="username"
+                    autoComplete="off"
                   />
                   
                   <label className={auth_wrapper.auth__form_label}>Email:</label>
@@ -37,6 +53,7 @@ export const RegisterPage = () => {
                     type="email" 
                     className={auth_wrapper.auth__form_input} 
                     name="email"
+                    autoComplete="off"
                   />
 
                   <label className={auth_wrapper.auth__form_label}>Password:</label>
@@ -44,6 +61,7 @@ export const RegisterPage = () => {
                     type="password" 
                     className={auth_wrapper.auth__form_input} 
                     name="password"
+                    autoComplete="off"
                   />
 
                   <Link className={auth_wrapper.auth__form_link} to="/auth/login">
@@ -62,7 +80,7 @@ export const RegisterPage = () => {
         </div>
       </div>
 
-      <img src={loginBg} className={auth_wrapper.auth__image} />
+      <img src={ loginBg } className={ auth_wrapper.auth__image } />
 
 
     </div>

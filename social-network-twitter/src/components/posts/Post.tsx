@@ -20,7 +20,7 @@ export const Post = () => {
 					
 					{
 						postIcon.map( ({ name, className, size }) => (
-							<Icon name={ name } className={ className } size={ size } />
+							<Icon name={ name } className={ className } size={ size } key={ name.iconName } />
 						))
 					}
 

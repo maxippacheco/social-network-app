@@ -5,10 +5,13 @@ import banner from '../assets/banner.jpg';
 import userImage from '../assets/userImage.png';
 import { Navbar } from "../components/navbar/Navbar";
 import { Search } from "../components/search/Search";
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
 
 
 export const ProfilePage = () => {
 
+  const { user } = useSelector( ( state: RootState) => state.auth );
   const navigate = useNavigate();
 
   return (
@@ -22,7 +25,7 @@ export const ProfilePage = () => {
           <NavIcon.Icon name={ faArrowLeft } size="lg" className="text-white m-7 hover:cursor-pointer" onClick={ () => navigate('/') } />
           
           <div className="flex flex-col">
-            <h3 className="text-white ml-2">maxi</h3>
+            <h3 className="text-white ml-2">{ user?.name }</h3>
             <span className="text-gray-500">1.238 tweets</span>
           </div>
           
@@ -40,8 +43,8 @@ export const ProfilePage = () => {
         </div>
 
         <div className="border-b h-56 pt-24 pl-5 flex flex-col">
-          <span className="text-white text-xl">maxi</span>
-          <span className="text-gray-500">@pachelife</span>
+          <span className="text-white text-xl">{ user?.name }</span>
+          <span className="text-gray-500">{ user?.username }</span>
           <div className="flex flex-row mt-3">
             <div className="text-white">255 <span className="text-gray-500">following</span></div>
             <div className="text-white ml-3">265 <span className="text-gray-500">followers</span></div>

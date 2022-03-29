@@ -3,7 +3,7 @@ export const auth_wrapper = {
   auth__container: 'w-full flex flex-row',
   auth__image: "h-full w-1/2",
   auth__side_container: 'w-1/2 h-full flex justify-center items-center',
-  auth__form_container: 'h-2/3 w-2/3 rounded-lg',
+  auth__form_container: 'h-4/5 w-2/3 rounded-lg',
   auth__form_title: 'text-center text-5xl text-white',
   auth__form: 'flex items-center flex-col',
   auth__form_label: 'w-2/3 mt-10 text-xl text-white',

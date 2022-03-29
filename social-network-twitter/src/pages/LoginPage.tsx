@@ -6,11 +6,15 @@ import { CustomInput } from '../components/input/CustomInput';
 
 import { auth_wrapper } from '../styles/auth-styles';
 import { loginValidations } from '../validations/validations';
+import { useDispatch } from 'react-redux';
+import { handleLogin } from '../actions/auth';
 
 
 export const LoginPage = () => {    
 
   // TODO:RESPONSIVE
+
+  const dispatch = useDispatch();
 
   return (
 	  <div className={ auth_wrapper.auth__container }>
@@ -21,12 +25,16 @@ export const LoginPage = () => {
           <h1 className={ auth_wrapper.auth__form_title }>Login</h1>
           <Formik
             initialValues={{
-              name: '',
+              email: '',
               password: '',
               password2: ''
             }}
-            onSubmit={ ( values ) => console.log( values ) }
-            validationSchema={ loginValidations }
+            onSubmit={ ( { email, password, password2 } ) => {
+              dispatch( handleLogin({  email, password1: password, password2 }) );
+              console.log({ email, password, password2});
+              
+            }}
+            validationSchema={ () => loginValidations }
           >
             {
               ({ handleSubmit }) => (
@@ -34,21 +42,24 @@ export const LoginPage = () => {
                 // Do abstractation
                 <Form className={ auth_wrapper.auth__form } onSubmit={ handleSubmit }>
                   <CustomInput 
-                    label='Name:'
-                    name='name'
+                    label='Email:'
+                    name='email'
                     type='text'
+                    autoComplete= 'off'
                   />
 
                   <CustomInput 
                     label='Password:'
                     name='password'
                     type='password'
+                    autoComplete= 'off'
                   />
 
                   <CustomInput
                     label='Confirm Password:' 
                     type="password" 
                     name="password2"
+                    autoComplete= 'off'
                   />
 
                   <Link className={ auth_wrapper.auth__form_link } to='/auth/register'>Don't you have an account?</Link>
