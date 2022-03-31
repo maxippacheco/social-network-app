@@ -23,7 +23,7 @@ export const handleRegister = ({ username, name, email, password }: RegisterData
 			const { user, ok }: RegisterResponse = await fetchWithoutToken({ endpoint: 'auth/register', method: 'POST', data });
 			
 			dispatch({
-				type: 'register',
+				type: 'REGISTER',
 				payload: {
 					user,
 				}
@@ -57,7 +57,7 @@ export const handleLogin = ( { email, password1, password2 }: LoginData ) => {
 			const { token , ok, userDB }: LoginResponse = await fetchWithoutToken({ endpoint: 'auth/login', method: 'POST', data });
 
 			dispatch({
-				type: 'login',
+				type: 'LOGIN',
 				payload: {
 					user: userDB,
 					token,

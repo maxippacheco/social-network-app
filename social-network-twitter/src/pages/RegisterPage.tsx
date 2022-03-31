@@ -2,7 +2,6 @@ import loginBg from '../assets/loginBg.jpg';
 import { auth_wrapper } from '../styles/auth-styles';
 import { Link } from 'react-router-dom';
 import { Field, Form, Formik } from 'formik';
-import { fetchWithoutToken } from '../helpers/fetch';
 import { useDispatch } from 'react-redux';
 import { handleRegister } from '../actions/auth';
 

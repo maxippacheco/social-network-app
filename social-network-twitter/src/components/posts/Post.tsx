@@ -1,10 +1,16 @@
 import UserImage from '../../assets/userImage.png';
+import { Post as PostInterface } from '../../interfaces/interfaces';
 import { Icon } from '../NavIcon/Icon';
 import { postIcon } from './postsIcons';
 
 
-export const Post = () => {
+interface PostProps{ 
+	post: PostInterface
+}
+
+export const Post = ({ post }: PostProps) => {
   	return (
+		// TODO: FIX STYLE
 		<section className="h-46 border-b border-b-white flex flex-row p-3 pt-2">
 			<img src={ UserImage } className="w-12 h-14 m-2 mr-3" />
 
@@ -13,7 +19,7 @@ export const Post = () => {
 				<span className='text-gray-500 pl-0.5'>@pachelife</span>
 				
 				<p className='pb-2 text-white'>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa aut autem minus corporis officia tempora officiis magnam. Itaque libero iusto inventore blanditiis, explicabo in voluptas minus similique pariatur consequuntur iste.
+					{ post.text }
 				</p>
 
 				<div className='w-3/4 flex justify-between mt-2 mb-2'>

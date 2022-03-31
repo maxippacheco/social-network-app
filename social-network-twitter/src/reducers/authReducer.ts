@@ -19,22 +19,22 @@ const AuthInitialState: AuthState = {
 }
 
 export type AuthAction = 
-	| { type: 'register', payload: { user: User }}
-	| { type: 'login', payload: { token: string, user: User }}
-	| { type: 'logout' }
+	| { type: 'REGISTER', payload: { user: User }}
+	| { type: 'LOGIN', payload: { token: string, user: User }}
+	| { type: 'LOGOUT' }
 
 
 export const authReducer = ( state: AuthState = AuthInitialState, action: AuthAction ): AuthState => {
 
 	switch (action.type) {
 
-		case 'register':
+		case 'REGISTER':
 			return {
 				...state,
 				user: action.payload.user,
 			}
 
-		case 'login':
+		case 'LOGIN':
 			return {
 				...state,
 				user: action.payload.user,
@@ -43,6 +43,15 @@ export const authReducer = ( state: AuthState = AuthInitialState, action: AuthAc
 				checking: false
 			}
 		
+		case 'LOGOUT':
+			return {
+				...state,
+				user: null,
+				token: null,
+				isLoggedIn: false,
+				checking: false
+			}
+
 		default:
 			return state;
 	}
