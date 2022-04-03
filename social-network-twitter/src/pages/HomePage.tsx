@@ -7,7 +7,7 @@ import { Post } from "../components/posts/Post";
 import { Formik, Form, Field } from 'formik';
 import { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { handleLoadPosts } from '../actions/post';
+import { handleLoadPosts, handleCreatePost } from '../actions/post';
 import { RootState } from '../store/store';
 
 const wrapper = {
@@ -36,6 +36,7 @@ export const HomePage = () => {
   }, [ dispatch ])
 
   const { posts } = useSelector( (state: RootState) => state.post);
+  
 
   return (
     // container
@@ -48,7 +49,9 @@ export const HomePage = () => {
             initialValues={{
               post: ''
             }}
-            onSubmit={ values => console.log(values.post.replace('\n', ''))}
+            onSubmit={ async(values) => {
+                await dispatch( handleCreatePost(values.post.replace('\n', '')) )
+            }}
           >
           {
             ({ handleSubmit }) => (

@@ -4,7 +4,7 @@
 interface FetchProps {
 	endpoint: string;
 	// Tipar con generico
-	data: object | null;
+	data: object | null | string;
 	method: 'GET' | 'POST' | 'PUT';
 
 }

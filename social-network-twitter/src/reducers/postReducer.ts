@@ -8,8 +8,9 @@ const PostInitialState: PostState = {
 	posts: null,
 }
 
-type PostAction = 
+export type PostAction = 
 	| { type: 'LOAD_POSTS', payload: Post[] }
+	| { type: 'CREATE_POST', payload: Post }
 
 
 export const postReducer = ( initialState: PostState = PostInitialState, action: PostAction ) => {
