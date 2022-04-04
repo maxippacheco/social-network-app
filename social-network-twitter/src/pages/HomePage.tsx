@@ -7,7 +7,7 @@ import { Post } from "../components/posts/Post";
 import { Formik, Form, Field } from 'formik';
 import { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { handleLoadPosts, handleCreatePost } from '../actions/post';
+import { handleLoadPosts, handleCreatePost, like } from '../actions/post';
 import { RootState } from '../store/store';
 
 const wrapper = {
@@ -35,8 +35,12 @@ export const HomePage = () => {
     dispatch( handleLoadPosts() )    
   }, [ dispatch ])
 
-  const { posts } = useSelector( (state: RootState) => state.post);
+  const { posts } = useSelector( ( state: RootState ) => state.post);
   
+
+  if(!posts){
+    return <h1>Loading</h1>
+  }
 
   return (
     // container
@@ -50,7 +54,7 @@ export const HomePage = () => {
               post: ''
             }}
             onSubmit={ async(values) => {
-                await dispatch( handleCreatePost(values.post.replace('\n', '')) )
+                await dispatch( handleCreatePost( { text: values.post.replace('\n', '') }.text ) )
             }}
           >
           {
@@ -91,10 +95,12 @@ export const HomePage = () => {
           }
           </Formik>
 
-          {/* TODO: SCROLL */}
           {
-            posts?.map(post => (
-              <Post key={ post.id } post={ post } />
+            posts.map(post => (
+              <Post 
+                key={ post.id } 
+                post={ post }
+              />
             ))
           }  
           

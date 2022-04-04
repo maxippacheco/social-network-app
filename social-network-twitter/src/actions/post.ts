@@ -1,13 +1,12 @@
 import { AppDispatch } from "../store/store"
 import { fetchWithToken } from '../helpers/fetch';
 import { PostResponse } from "../interfaces/interfaces";
-import { PostAction } from '../reducers/postReducer';
+import { Dispatch } from "react";
 
 
 export const handleLoadPosts = () => {
 	return async( dispatch: AppDispatch ) => {
 
-		// TODO: Endpoint lmao
 		const { ok, posts }: PostResponse = await fetchWithToken({ data: null, endpoint: 'post', method: 'GET' })
 
 		if ( ok ) {
@@ -17,24 +16,28 @@ export const handleLoadPosts = () => {
 			})		
 		}
 
-		console.log(ok);
-		
 
 	}
 }
 
-export const handleCreatePost = (text: any) => {
-	return async( dispatch: AppDispatch | any ) => {
+export const handleCreatePost = (text: string ) => {
+	// TODO: remove any
+	return async( dispatch: AppDispatch) => {
+		
+		try {
+			const { ok, post } = await fetchWithToken({ data: { text }, endpoint: 'post', method: 'POST' })
 	
-		const { ok, post } = await fetchWithToken({ data: {text}, endpoint: 'post', method: 'POST' })
-
-		if ( ok ) {
-			dispatch({
-				type: 'CREATE_POST',
-				payload: post
-			});
-
-			dispatch(handleLoadPosts());
+			if ( ok ) {
+				dispatch({
+					type: 'CREATE_POST',
+					payload: post
+				});
+	
+			}
+			
+		} catch (error) {
+			console.log(typeof text);
+			
 		}
 
 
@@ -42,9 +45,73 @@ export const handleCreatePost = (text: any) => {
 	}
 }
 
-export const like = () => console.log('like');
+export const like = ( id: string ) => {
 
-export const retweet = () => console.log('retweet');
+	return async(dispatch: AppDispatch ) => {
+		const resp = await fetchWithToken({ data: {}, endpoint: `post/like/${ id }`, method: 'PUT' })
+
+		if ( resp.ok ) {
+			dispatch({
+				type: 'LIKE',
+				payload: resp.post
+			})
+
+			console.log(resp);
+			
+
+		}
+	}
+
+}
+
+export const unlike = ( id: string ) => {
+
+	return async(dispatch: AppDispatch ) => {
+		const resp = await fetchWithToken({ data: {}, endpoint: `post/like/remove/${ id }`, method: 'PUT' })
+
+		if ( resp.ok ) {
+			dispatch({
+				type: 'UNLIKE',
+				payload: resp.post
+			})
+
+			
+
+		}
+	}
+
+
+}
+
+export const retweet = ( id: string ) => {
+	return async( dispatch: AppDispatch) => {
+	
+		const resp = await fetchWithToken({ data: {} , endpoint: `post/retweet/${ id }`, method: 'PUT' })
+
+		if ( resp.ok ) {
+			dispatch({
+				type: 'RETWEET',
+				payload: resp.post
+			})
+
+		}
+	}
+}
+
+export const removeRetweet = ( id: string ) => {
+	return async( dispatch: AppDispatch) => {
+		const resp = await fetchWithToken({ data: null, endpoint: `post/retweet/remove/${ id }`, method: 'PUT' })
+
+		if ( resp.ok ) {
+			dispatch({
+				type: 'RETWEET',
+				payload: resp.post
+			})
+
+		}
+	}
+} 
+
 
 export const comment = () => console.log('comment');
 
