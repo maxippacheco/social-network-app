@@ -38,8 +38,9 @@ export const HomePage = () => {
   const { posts } = useSelector( ( state: RootState ) => state.post);
   
 
-  if(!posts){
-    return <h1>Loading</h1>
+  if(!posts ){
+    // TODO: loader component
+    return <h1 className="text-white">Loading</h1>
   }
 
   return (
@@ -53,8 +54,10 @@ export const HomePage = () => {
             initialValues={{
               post: ''
             }}
-            onSubmit={ async(values) => {
-                await dispatch( handleCreatePost( { text: values.post.replace('\n', '') }.text ) )
+            onSubmit={ async(values, { resetForm }) => {
+              await dispatch( handleCreatePost( { text: values.post.replace('\n', '') }.text ) )
+
+              resetForm();
             }}
           >
           {

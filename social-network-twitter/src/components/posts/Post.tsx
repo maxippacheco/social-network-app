@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { like, unlike, removeRetweet, retweet } from '../../actions/post';
 import { useState } from 'react';
 import { RootState } from '../../store/store';
+import { useNavigate } from 'react-router-dom';
 
 
 interface PostProps{ 
@@ -24,12 +25,19 @@ export const Post = ({ post, onClick }: PostProps) => {
 	const { posts } = useSelector((state: RootState) => state.post);
 	const { user } = useSelector((state: RootState) => state.auth);
 
+	const [isLiked, setLiked] = useState(false);
+	const [isRetweeted, setRetweeted] = useState(false);
+
+
 	const sendAction = ( iconName: string ) => {
 		switch ( iconName) {
-			case 'heart':
+			case 'heart':	
+				// TODO: try to refactor this
 				if( !post.likes.includes( user?.id ) ){
+					setLiked(true);
 					dispatch( like( post.id ) );
 				}else{
+					setLiked(false)
 					dispatch( unlike( post.id ) );
 				}
 		
@@ -37,11 +45,12 @@ export const Post = ({ post, onClick }: PostProps) => {
 		
 			case 'retweet':
 			
+				// TODO: try to refactor this
 				if( !post.retweet.includes( user?.id ) ){
-					// TODO:
+					setRetweeted( true );
 					dispatch( retweet( post.id ) );
 				}else{
-					// TODO:
+					setRetweeted( false );
 					dispatch( removeRetweet( post.id ) );
 				}
 			
@@ -58,10 +67,10 @@ export const Post = ({ post, onClick }: PostProps) => {
 
 		switch ( iconName ) {
 			case 'heart':
-				return post.likes.includes( user?.id ) ? 'text-red-500' : 'text-slate-700';
+				return isLiked || post.likes.includes( user?.id ) ? 'text-red-500' : 'text-slate-700';
 			
 			case 'retweet':
-				return post.retweet.includes( user?.id ) ? 'text-green-500' : 'text-slate-700';
+				return isRetweeted || post.retweet.includes( user?.id ) ? 'text-green-500' : 'text-slate-700';
 
 			default:
 				return 'text-gray-500';
@@ -70,6 +79,7 @@ export const Post = ({ post, onClick }: PostProps) => {
 	}
 	
 	const { username, name } = post.user_id;
+	const navigate = useNavigate();
 
 
   	return (
@@ -79,7 +89,7 @@ export const Post = ({ post, onClick }: PostProps) => {
 
 			<div className='w-full'>
 				{/* TODO: FIX REALOAD WHEN A USER LIKE A POST */}
-				<span className='text-white'>{ name }</span>
+				<span className='text-white' onClick={ () => navigate(`/profile/${ username }`) }>{ name }</span>
 				<span className='text-gray-500 pl-0.5'>@{ username }</span>
 				
 				<p className='pb-2 text-white'>
@@ -91,7 +101,7 @@ export const Post = ({ post, onClick }: PostProps) => {
 					{
 						postIcon.map( ({ name, className, size  }) => (
 							<Icon 
-								onClick={ () => sendAction( name.iconName )}	
+								onClick={ () => sendAction( name.iconName ) }	
 								name={ name } 
 								// TODO: RENDER THE COLOR INSTANTLY AND NOT DEPENDING ON THE STATE
 								className={ `${ className } ${ activeColor( name.iconName ) }` }

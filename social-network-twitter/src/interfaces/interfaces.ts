@@ -14,6 +14,7 @@ export interface PostIcons{
 	name: IconDefinition;
 	size: SizeProp;
 	activeColor: string;
+	isActiveColor: boolean;
 	className: string;
 }
 

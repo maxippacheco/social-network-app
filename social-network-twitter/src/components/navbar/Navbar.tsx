@@ -55,7 +55,7 @@ export const Navbar = () => {
           }
 
           <div className="h-2/5 w-full flex items-end">
-            <div className={ wrapper.navbar__nav_profile_container } onClick={ () => navigate('/profile') }>
+            <div className={ wrapper.navbar__nav_profile_container } onClick={ () => navigate('/profile/me') }>
               <img src={ userImage } className={ `${ wrapper.post__avatar_image } m-0` } />            
               
               <div className={ wrapper.navbar__nav_profile_row }>

@@ -2,6 +2,7 @@ import { HomePage } from '../pages/HomePage';
 import { ProfilePage } from '../pages/ProfilePage';
 import { ChatPage } from '../pages/ChatPage';
 import { AuthRouter } from './AuthRouter';
+import { UsersProfilePage } from '../pages/UsersProfilePage';
 
 type JSXElement = () => JSX.Element;
 
@@ -31,8 +32,8 @@ export const routes: Route[] = [
 
 	},
 	{
-		to: '/profile',
-		path: 'profile',
+		to: '/profile/me',
+		path: 'profile/me',
 		Component: ProfilePage,
 		name: 'Profile-Page',
 		restriction: 'private'
@@ -44,6 +45,13 @@ export const routes: Route[] = [
 		Component: ChatPage,
 		name: 'Chat-Page',
 		restriction: 'private'
-
 	},
+	{
+		to: '/profile/:username',
+		path: 'profile/:username',
+		Component: UsersProfilePage,
+		name: 'Liked-Page',
+		restriction: 'private'
+	},
+
 ]

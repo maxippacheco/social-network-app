@@ -21,8 +21,8 @@ export const handleLoadPosts = () => {
 }
 
 export const handleCreatePost = (text: string ) => {
-	// TODO: remove any
-	return async( dispatch: AppDispatch) => {
+	// TODO: remove any and fix reload of posts 
+	return async( dispatch: AppDispatch | Dispatch<any> ) => {
 		
 		try {
 			const { ok, post } = await fetchWithToken({ data: { text }, endpoint: 'post', method: 'POST' })
@@ -32,6 +32,8 @@ export const handleCreatePost = (text: string ) => {
 					type: 'CREATE_POST',
 					payload: post
 				});
+
+				dispatch( handleLoadPosts() );
 	
 			}
 			
@@ -100,7 +102,7 @@ export const retweet = ( id: string ) => {
 
 export const removeRetweet = ( id: string ) => {
 	return async( dispatch: AppDispatch) => {
-		const resp = await fetchWithToken({ data: null, endpoint: `post/retweet/remove/${ id }`, method: 'PUT' })
+		const resp = await fetchWithToken({ data: {}, endpoint: `post/retweet/remove/${ id }`, method: 'PUT' })
 
 		if ( resp.ok ) {
 			dispatch({

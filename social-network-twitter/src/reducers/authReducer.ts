@@ -21,6 +21,7 @@ const AuthInitialState: AuthState = {
 export type AuthAction = 
 	| { type: 'REGISTER', payload: { user: User }}
 	| { type: 'LOGIN', payload: { token: string, user: User }}
+	| { type: 'FOLLOW_USER', payload: { user: User }}
 	| { type: 'LOGOUT' }
 
 
@@ -42,6 +43,13 @@ export const authReducer = ( state: AuthState = AuthInitialState, action: AuthAc
 				isLoggedIn: true,
 				checking: false
 			}
+		
+		case 'FOLLOW_USER':
+			return {
+				...state,
+				user: action.payload.user,
+			}
+			
 		
 		case 'LOGOUT':
 			return {
