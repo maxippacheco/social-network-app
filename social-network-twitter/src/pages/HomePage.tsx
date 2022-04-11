@@ -9,6 +9,9 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { handleLoadPosts, handleCreatePost, like } from '../actions/post';
 import { RootState } from '../store/store';
+import { useNavigate } from 'react-router-dom';
+import { MainLayout } from '../layout/MainLayout';
+import { Loader } from '../components/loader/Loader';
 
 const wrapper = {
   container: `w-screen h-screen bg-slate-900 flex flex-row`,
@@ -29,26 +32,25 @@ const wrapper = {
 
 export const HomePage = () => {
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { posts } = useSelector( ( state: RootState ) => state.post);
 
   useEffect(() => {
     dispatch( handleLoadPosts() )    
   }, [ dispatch ])
-
-  const { posts } = useSelector( ( state: RootState ) => state.post);
   
 
-  if(!posts ){
+  if( !posts ){
     // TODO: loader component
-    return <h1 className="text-white">Loading</h1>
+    return <Loader />
   }
 
   return (
-    // container
-    // <div className={wrapper.container}>
       <>
-        <Navbar />      
         
+        <Navbar />
+
         <section className={ wrapper.post__container }>
           <Formik
             initialValues={{
@@ -112,8 +114,5 @@ export const HomePage = () => {
         <Search />
       
       </>
-
-
-    // </div>
   )
 }

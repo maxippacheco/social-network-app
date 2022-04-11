@@ -1,4 +1,4 @@
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { Formik, Form } from 'formik';
 import { Link } from 'react-router-dom';
 
 import loginBg from '../assets/loginBg.jpg';
@@ -7,14 +7,21 @@ import { CustomInput } from '../components/input/CustomInput';
 import { auth_wrapper } from '../styles/auth-styles';
 import { loginValidations } from '../validations/validations';
 import { useDispatch } from 'react-redux';
-import { handleLogin } from '../actions/auth';
+import { handleGoogleLogin, handleLogin } from '../actions/auth';
+import GoogleLogin, { GoogleLoginResponse } from 'react-google-login';
 
+const clientID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 export const LoginPage = () => {    
 
   // TODO:RESPONSIVE
 
   const dispatch = useDispatch();
+
+  const googleResponse = ( response: GoogleLoginResponse  ) => {
+    dispatch(handleGoogleLogin(response.tokenObj.id_token));
+
+  }
 
   return (
 	  <div className={ auth_wrapper.auth__container }>
@@ -61,10 +68,23 @@ export const LoginPage = () => {
                     name="password2"
                     autoComplete= 'off'
                   />
-
+                  
                   <Link className={ auth_wrapper.auth__form_link } to='/auth/register'>Don't you have an account?</Link>
 
+
                   <button type="submit" className={ auth_wrapper.auth__form_submit }>Submit</button>
+                  
+                  <GoogleLogin 
+                    // disabled={ false }
+                    className='mt-5 w-3/5 p-3 rounded-lg flex items-center justify-center bg-red-500'
+                    // TODO: Put it in a variable
+                    clientId={ clientID }
+                    buttonText='Login'
+                    // style={{ backgroundColor: '#4285f4' }}
+                    onSuccess={ googleResponse }
+                    onFailure={ googleResponse }
+                    cookiePolicy='single_host_origin'
+                  />
                 </Form>
 
               )

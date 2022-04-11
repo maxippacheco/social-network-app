@@ -3,7 +3,6 @@ import { Post as PostInterface } from '../../interfaces/interfaces';
 import { Icon } from '../NavIcon/Icon';
 import { postIcon } from './postsIcons';
 import { timeFormat } from '../../helpers/timeFormat';
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { useDispatch, useSelector } from 'react-redux';
 import { like, unlike, removeRetweet, retweet } from '../../actions/post';
 import { useState } from 'react';
@@ -20,14 +19,15 @@ interface PostProps{
 
 export const Post = ({ post, onClick }: PostProps) => {
 
+	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	const { posts } = useSelector((state: RootState) => state.post);
 	const { user } = useSelector((state: RootState) => state.auth);
 
 	const [isLiked, setLiked] = useState(false);
 	const [isRetweeted, setRetweeted] = useState(false);
-
+	
+	const { username, name } = post.user_id;
 
 	const sendAction = ( iconName: string ) => {
 		switch ( iconName) {
@@ -45,7 +45,7 @@ export const Post = ({ post, onClick }: PostProps) => {
 		
 			case 'retweet':
 			
-				// TODO: try to refactor this
+				// TODO: try to refactor this to improve performance
 				if( !post.retweet.includes( user?.id ) ){
 					setRetweeted( true );
 					dispatch( retweet( post.id ) );
@@ -78,25 +78,31 @@ export const Post = ({ post, onClick }: PostProps) => {
 
 	}
 	
-	const { username, name } = post.user_id;
-	const navigate = useNavigate();
 
+	const navigateToUser = () => { 
+		if( user?.username === username){
+			navigate(`/profile/me`) 
+		}else{
+			navigate(`/profile/${ username }`) 
+		}
+			
+	}
 
   	return (
 		// TODO: FIX STYLE
-		<section className="h-46 border-b border-b-white flex flex-row p-3 pt-2" onClick={ onClick }>
+		<section className="h-46 border-b border-b-white flex flex-row p-3 pt-2">
 			<img src={ UserImage } className="w-12 h-14 m-2 mr-3" />
 
-			<div className='w-full'>
+			<div className='w-full '>
 				{/* TODO: FIX REALOAD WHEN A USER LIKE A POST */}
-				<span className='text-white' onClick={ () => navigate(`/profile/${ username }`) }>{ name }</span>
+				<span className='text-white cursor-pointer' onClick={ navigateToUser }>{ name }</span>
 				<span className='text-gray-500 pl-0.5'>@{ username }</span>
 				
-				<p className='pb-2 text-white'>
+				<p className='pb-2 text-white cursor-pointer' onClick={ () => navigate(`/${ post.id }/comments`) }>
 					{ post.text }
 				</p>
 
-				<div className='w-5/6 flex justify-between mt-2 mb-2 '>
+				<div className='w-5/6 flex justify-between mt-2 mb-2 cursor-pointer' onClick={ onClick }>
 
 					{
 						postIcon.map( ({ name, className, size  }) => (
@@ -115,7 +121,7 @@ export const Post = ({ post, onClick }: PostProps) => {
 				</div>
 
 			</div>
-				<div className='w-2/4 h-ful flex justify-end'>
+				<div className='w-2/4 h-ful flex justify-end cursor-pointer' onClick={ () => navigate(`/${ post.id }/comments`) }>
 					<span className='text-base text-gray-500'>
 						{ timeFormat( post.createdAt ) }	
 					</span>

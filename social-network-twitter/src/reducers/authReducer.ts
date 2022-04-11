@@ -21,6 +21,7 @@ const AuthInitialState: AuthState = {
 export type AuthAction = 
 	| { type: 'REGISTER', payload: { user: User }}
 	| { type: 'LOGIN', payload: { token: string, user: User }}
+	| { type: 'GOOGLE_LOGIN', payload: { token: string, user: User }}
 	| { type: 'FOLLOW_USER', payload: { user: User }}
 	| { type: 'LOGOUT' }
 
@@ -35,6 +36,7 @@ export const authReducer = ( state: AuthState = AuthInitialState, action: AuthAc
 				user: action.payload.user,
 			}
 
+		case 'GOOGLE_LOGIN':
 		case 'LOGIN':
 			return {
 				...state,

@@ -3,6 +3,7 @@ import { ProfilePage } from '../pages/ProfilePage';
 import { ChatPage } from '../pages/ChatPage';
 import { AuthRouter } from './AuthRouter';
 import { UsersProfilePage } from '../pages/UsersProfilePage';
+import { PostCommentPage } from '../pages/PostCommentPage';
 
 type JSXElement = () => JSX.Element;
 
@@ -53,5 +54,11 @@ export const routes: Route[] = [
 		name: 'Liked-Page',
 		restriction: 'private'
 	},
-
+	{
+		to: '/:postId/comments',
+		path: '/:postId/comments',
+		Component: PostCommentPage,
+		name: 'Post-Comments-Page',
+		restriction: 'private'
+	},
 ]

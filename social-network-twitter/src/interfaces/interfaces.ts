@@ -31,6 +31,12 @@ export interface LoginResponse {
 	token: string;
 }
 
+export interface LoginWithGoogleResponse {
+	ok: boolean;
+	user: User;
+	token: string;
+}
+
 export interface User {
 	name:      string;
 	username:  string;

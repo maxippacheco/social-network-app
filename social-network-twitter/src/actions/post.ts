@@ -77,8 +77,6 @@ export const unlike = ( id: string ) => {
 				payload: resp.post
 			})
 
-			
-
 		}
 	}
 
@@ -106,7 +104,7 @@ export const removeRetweet = ( id: string ) => {
 
 		if ( resp.ok ) {
 			dispatch({
-				type: 'RETWEET',
+				type: 'REMOVE_RETWEET',
 				payload: resp.post
 			})
 

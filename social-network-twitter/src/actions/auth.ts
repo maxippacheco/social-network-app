@@ -1,5 +1,5 @@
-import { fetchWithoutToken } from '../helpers/fetch';
-import { RegisterResponse, LoginResponse } from '../interfaces/interfaces';
+import { fetchWithoutToken, fetchWithToken } from '../helpers/fetch';
+import { RegisterResponse, LoginResponse, LoginWithGoogleResponse } from '../interfaces/interfaces';
 import { AppDispatch } from '../store/store';
 
 interface RegisterData{
@@ -80,11 +80,41 @@ export const handleLogin = ( { email, password1, password2 }: LoginData ) => {
 
 }
 
+export const handleGoogleLogin = ( id_token: string ) => {
+
+	return async( dispatch: AppDispatch ) => {
+
+		try {
+			
+			const { ok, user, token }: LoginWithGoogleResponse = await fetchWithoutToken({ endpoint: 'auth/login/google', data: {id_token} ,method: 'POST' });
+
+			if( ok ){
+				dispatch({
+					type: 'GOOGLE_LOGIN',
+					payload: {
+						user,
+						token,
+					}
+				});
+
+				localStorage.setItem('token', token);	
+			}
+
+		} catch (error) {
+			console.log(error);
+		}
+
+	}
+
+
+}
+
+
 export const handleFollowUser = ( id: string ) => {
 	return async( dispatch: AppDispatch ) => {
 
 		try {
-			const { ok, user_inSession } = await fetchWithoutToken({ data: {}, endpoint: `follow/${id}`, method: 'POST' });
+			const { ok, user_inSession } = await fetchWithToken({ data: {}, endpoint: `follow/${id}`, method: 'POST' });
 
 			const user = user_inSession;
 			
