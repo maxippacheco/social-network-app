@@ -41,6 +41,7 @@ export interface User {
 	name:      string;
 	username:  string;
 	email:     string;
+	img?:			string;
 	online:    boolean;
 	followers: any[];
 	following: any[];

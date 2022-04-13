@@ -109,6 +109,38 @@ export const handleGoogleLogin = ( id_token: string ) => {
 
 }
 
+export const handleRenewToken = () => {
+	return async( dispatch: AppDispatch ) => {
+		
+		const token = localStorage.getItem('token');
+
+		if( !token ) return;
+		
+		try {
+			
+			const { ok, user, token } = await fetchWithToken({ endpoint: 'auth/renew', data: {} ,method: 'PUT' });
+		
+			if( ok ){
+					
+				dispatch({
+					type: 'RENEW_TOKEN',
+					payload: {
+						user,
+						token,
+					}
+				});
+
+				localStorage.setItem('token', token);	
+
+			}
+
+		} catch (error) {
+			console.log(error);
+		}
+
+
+	}
+}
 
 export const handleFollowUser = ( id: string ) => {
 	return async( dispatch: AppDispatch ) => {

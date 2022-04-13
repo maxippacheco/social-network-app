@@ -41,8 +41,10 @@ export const UsersProfilePage = () => {
   const { posts } = useSelector( ( state: RootState) => state.post );
   const user_inSession = useSelector( ( state: RootState) => state.auth );
   const navigate = useNavigate();
+  const [ isFollowed, setIsFollowed ] = useState(false);
 
   const followUser = ( id: string ) => {
+    setIsFollowed(true);
     dispatch(handleFollowUser( id ));
   }
 
@@ -93,7 +95,8 @@ export const UsersProfilePage = () => {
             onClick={ () => followUser( user?.id || '' ) }
           >
             {
-              user_inSession.user?.following.includes( user.id )
+              // user_inSession.user?.following.includes( user.id )
+              isFollowed
               ?
               'Following'
               :

@@ -2,15 +2,25 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { PrivateRoute } from './PrivateRoute';
 import { routes } from './routes';
 import { PublicRoute } from './PublicRoute';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../store/store';
+import { useEffect } from 'react';
+import { handleRenewToken } from '../actions/auth';
 
 export const Navigation = () => {
+
+	const dispatch = useDispatch();
 
 	const wrapper = {
 		container: `w-screen h-screen bg-slate-900 flex flex-row`,
 
 	}
+
+	useEffect(() => {
+		dispatch( handleRenewToken() );
+		
+	}, []);
+	
 
 	const { isLoggedIn } = useSelector((state: RootState) => state.auth);
 	

@@ -87,6 +87,8 @@ export const retweet = ( id: string ) => {
 	return async( dispatch: AppDispatch) => {
 	
 		const resp = await fetchWithToken({ data: {} , endpoint: `post/retweet/${ id }`, method: 'PUT' })
+		console.log(resp);
+		
 
 		if ( resp.ok ) {
 			dispatch({
