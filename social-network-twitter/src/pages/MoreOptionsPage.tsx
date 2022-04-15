@@ -6,7 +6,11 @@ export const MoreOptionsPage = () => {
   
 	const dispatch = useDispatch();
 
-	const logout = () => dispatch( handleLogout() );
+	const logout = () => {
+		dispatch( handleLogout() );
+
+		localStorage.removeItem( 'token' );
+	}
 
 
 	return (
