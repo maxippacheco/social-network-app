@@ -11,7 +11,7 @@ export const MainLayout = ({ children }: Props ) => {
 		<>
 			<Navbar />
 			
-			<section className="basis-1/2  border-r overflow-auto scrollbar-hide">
+			<section className="basis-1/2  border-r border-r-slate-700 overflow-auto scrollbar-hide">
 				{ children }
 			</section>
 

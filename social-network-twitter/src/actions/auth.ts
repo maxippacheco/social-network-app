@@ -164,3 +164,7 @@ export const handleFollowUser = ( id: string ) => {
 		}
 	}
 }
+
+export const handleLogout = () => ({
+	type: 'LOGOUT'
+})

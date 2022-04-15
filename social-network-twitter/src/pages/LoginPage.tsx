@@ -8,9 +8,10 @@ import { auth_wrapper } from '../styles/auth-styles';
 import { loginValidations } from '../validations/validations';
 import { useDispatch } from 'react-redux';
 import { handleGoogleLogin, handleLogin } from '../actions/auth';
-import GoogleLogin, { GoogleLoginResponse } from 'react-google-login';
+import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 
-const clientID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+const clientID = import.meta.env.VITE_GOOGLE_CLIENT_ID as string;
+
 
 export const LoginPage = () => {    
 
@@ -18,7 +19,8 @@ export const LoginPage = () => {
 
   const dispatch = useDispatch();
 
-  const googleResponse = ( response: GoogleLoginResponse  ) => {
+  const googleResponse = ( response: GoogleLoginResponse | any ) => {
+
     dispatch(handleGoogleLogin(response.tokenObj.id_token));
 
   }

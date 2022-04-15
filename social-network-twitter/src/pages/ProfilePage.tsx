@@ -1,12 +1,9 @@
-import { useNavigate } from 'react-router-dom';
-import { faArrowLeft, faUserCircle } from "@fortawesome/free-solid-svg-icons";
-import { NavIcon } from "../components/NavIcon/NavIcon"
+import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import banner from '../assets/banner.jpg';
 import userImage from '../assets/userImage.png';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 import { Post } from '../components/posts/Post';
-import { handleFollowUser } from '../actions/auth';
 import { MainLayout } from '../layout/MainLayout';
 import { Icon } from '../components/NavIcon/Icon';
 import { Header } from '../components/Header';
@@ -16,14 +13,11 @@ export const ProfilePage = () => {
 
   // REFACTOR THIS PAGE TO USE IT AS A COMPONENT
 
-  const dispatch = useDispatch();
   const { user } = useSelector( ( state: RootState) => state.auth );
   const { posts } = useSelector( ( state: RootState) => state.post );
-  const navigate = useNavigate();
 
-  const followUser = ( id: string ) => {
-    dispatch(handleFollowUser( id ));  
-  }
+
+
 
   return (
     <MainLayout>
@@ -70,7 +64,7 @@ export const ProfilePage = () => {
       </div>
         <div>
         {
-          
+         
           posts?.map( ( post ) => {
             // 1er condicion Si el post es de el usuario actual
             if( post.user_id._id === user?.id || post.retweet.includes( user?.id ) ) {

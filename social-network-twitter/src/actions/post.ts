@@ -1,6 +1,6 @@
 import { AppDispatch } from "../store/store"
 import { fetchWithToken } from '../helpers/fetch';
-import { PostResponse } from "../interfaces/interfaces";
+import { Post, PostResponse } from "../interfaces/interfaces";
 import { Dispatch } from "react";
 
 
@@ -12,15 +12,14 @@ export const handleLoadPosts = () => {
 		if ( ok ) {
 			dispatch({
 				type: 'LOAD_POSTS',
+				// sorting by timestamp
 				payload: posts
 			})		
 		}
-
-
 	}
 }
 
-export const handleCreatePost = (text: string ) => {
+export const handleCreatePost = ( text: string ) => {
 	// TODO: remove any and fix reload of posts 
 	return async( dispatch: AppDispatch | Dispatch<any> ) => {
 		
@@ -33,7 +32,7 @@ export const handleCreatePost = (text: string ) => {
 					payload: post
 				});
 
-				dispatch( handleLoadPosts() );
+				// dispatch( handleLoadPosts() );
 	
 			}
 			
@@ -115,6 +114,32 @@ export const removeRetweet = ( id: string ) => {
 } 
 
 
-export const comment = () => console.log('comment');
+export const comment = ( id: string, text: string ) => {
+	return async( dispatch: AppDispatch | Dispatch<any>) => {
+		
+		try {
+			const resp = await fetchWithToken({ data: { text }, endpoint: `post/comment/${ id }`, method: 'POST' })
+			
+			console.log(resp);
+			
+			
+			if ( resp.ok ) {
+			
+				dispatch({
+					type: 'COMMENT_POST',
+					payload: resp.post
+				})
+	
+				// TODO: fix reload of posts
+				// dispatch( handleLoadPosts() )
+			}
+			
+		} catch (error) {
+			console.log(error);
+			
+		}
+
+	}
+} 
 
 export const save = () => console.log('save');

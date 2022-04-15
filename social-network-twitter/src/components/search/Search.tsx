@@ -1,4 +1,3 @@
-import React from 'react'
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { NavIcon } from '../NavIcon/NavIcon';
 

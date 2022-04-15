@@ -53,6 +53,14 @@ export const UsersProfilePage = () => {
 
   }, []);
 
+  useEffect(() => {
+    if( user_inSession.user?.following.includes( user?.id ) ){
+      setIsFollowed( true );
+    }
+
+  }, []);
+
+
   if (!user) {
     return <Loader />
   }
@@ -95,7 +103,6 @@ export const UsersProfilePage = () => {
             onClick={ () => followUser( user?.id || '' ) }
           >
             {
-              // user_inSession.user?.following.includes( user.id )
               isFollowed
               ?
               'Following'
@@ -121,7 +128,7 @@ export const UsersProfilePage = () => {
           </div>
 
       </div>
-        <div>
+      <div>
         {
           
           posts?.map( ( post ) => {
@@ -132,7 +139,8 @@ export const UsersProfilePage = () => {
           })
         }
           
-        </div>
+      </div>
+        
 
       </section>
     </MainLayout>

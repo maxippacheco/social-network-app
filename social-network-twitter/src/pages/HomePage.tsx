@@ -7,20 +7,19 @@ import { Post } from "../components/posts/Post";
 import { Formik, Form, Field } from 'formik';
 import { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { handleLoadPosts, handleCreatePost, like } from '../actions/post';
+import { handleLoadPosts, handleCreatePost } from '../actions/post';
 import { RootState } from '../store/store';
-import { useNavigate } from 'react-router-dom';
-import { MainLayout } from '../layout/MainLayout';
 import { Loader } from '../components/loader/Loader';
+import { Post as PostInterface } from '../interfaces/interfaces';
 
 const wrapper = {
   container: `w-screen h-screen bg-slate-900 flex flex-row`,
 
-  post__container: `basis-1/2  border-r overflow-auto scrollbar-hide`,
+  post__container: `basis-1/2 border-r border-r-slate-700 overflow-auto scrollbar-hide`,
   post__main_title: `m-2 text-lg text-white`,
   post__avatar_image: `w-12 h-14 m-2`,
   
-  post__create_container: `w-full h-1/5 border-b`,
+  post__create_container: `w-full h-1/5 border-b border-b-slate-700`,
   post__create_welcome_container: `flex justify-between w-full`,
   post__create_feature_icon: `m-2 text-lg text-sky-500`,
   post__create_avatar_container: `w-full flex flex-row`,
@@ -32,7 +31,6 @@ const wrapper = {
 
 export const HomePage = () => {
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { posts } = useSelector( ( state: RootState ) => state.post);
 

@@ -10,9 +10,9 @@ export const ChatPage = () => {
 
       {/* TODO: CREATE WRAPPER */}
       {/* User List */}
-      <section className='basis-1/3 border-r overflow-auto scrollbar-hide'>
+      <section className='basis-1/3 border-r border-r-slate-700 overflow-auto scrollbar-hide'>
         {/* search bar */}
-        <div className='w-full h-36 border-b'>
+        <div className='w-full h-36 border-b border-b-slate-700'>
           <h3 className='text-white m-3 text-bold'>Messages</h3>
           <div className='w-full flex justify-center'>
             <input 
@@ -37,20 +37,23 @@ export const ChatPage = () => {
       
       {/* Chat */}
       <section className='basis-1/2 border-r h-full w-full scrollbar-hide overflow-auto'>
-        <IncomingMessage />
-        <OutgoingMessage />
-        <IncomingMessage />
-        <OutgoingMessage />
-        <IncomingMessage />
-        <OutgoingMessage />
-        <IncomingMessage />
-        <OutgoingMessage />
-        <IncomingMessage />
-        <OutgoingMessage />
-        <IncomingMessage />
-        <OutgoingMessage />
-      </section>
+        <div className='scrollbar-hide overflow-auto w-full h-full'>
+          <IncomingMessage />
+          <OutgoingMessage />
+          <IncomingMessage />
+          <OutgoingMessage />
+          <IncomingMessage />
+          <OutgoingMessage />
+          <IncomingMessage />
+          <OutgoingMessage />
+          <IncomingMessage />
+          <OutgoingMessage />
+          <IncomingMessage />
+          <OutgoingMessage />
+        </div>
 
+        <div className='bg-red-600'>dadssa</div>
+      </section>
     </>
   )
 }

@@ -4,6 +4,7 @@ import { ChatPage } from '../pages/ChatPage';
 import { AuthRouter } from './AuthRouter';
 import { UsersProfilePage } from '../pages/UsersProfilePage';
 import { PostCommentPage } from '../pages/PostCommentPage';
+import { MoreOptionsPage } from '../pages/MoreOptionsPage';
 
 type JSXElement = () => JSX.Element;
 
@@ -59,6 +60,13 @@ export const routes: Route[] = [
 		path: '/:postId/comments',
 		Component: PostCommentPage,
 		name: 'Post-Comments-Page',
+		restriction: 'private'
+	},
+	{
+		to: '/options',
+		path: '/options',
+		Component: MoreOptionsPage,
+		name: 'Options-Page',
 		restriction: 'private'
 	},
 ]

@@ -15,7 +15,7 @@ export const Navbar = () => {
   const logo = { name: faGithub, titlePath: '', hover: '', titleText: '' };  	
 	
   const wrapper = {
-		navbar__container: `basis-1/2 border-r flex justify-end`,
+		navbar__container: `basis-1/2 border-r border-r-slate-700 flex justify-end`,
     navbar__nav: `w-1/2 h-full`,
     navbar__nav_profile_container: `text-xl p-4 w-full m-4 mb-0 text-white flex flex-row align-middle hover:cursor-pointer hover:bg-slate-700 hover:rounded-full`,
     navbar__nav_profile_row: `flex flex-col ml-3`,

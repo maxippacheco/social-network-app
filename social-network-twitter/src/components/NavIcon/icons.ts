@@ -44,7 +44,7 @@ export const icons: Icons[] = [
 	},
 	{
 		name: faList,
-		titlePath: '/',
+		titlePath: '/options',
 		titleText: "More options",
 		size: "xs",
 		cursor: "cursor-pointer",
