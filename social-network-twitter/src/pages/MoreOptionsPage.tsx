@@ -27,19 +27,21 @@ export const MoreOptionsPage = () => {
 
 				<Formik
 					initialValues={{
-						img: null,
+						file: null,
 						name: '',
 						email: '',
 						password: '',
 						passwordConfirm: ''
 					}}
-					onSubmit={ async( {email, password, name } ) => {
+					onSubmit={ async( {email, password, name, file } ) => {
 
-						if( !email ){
+						// TODO: validate when change email
+						if( !email || email === '' ){
 							email = user?.email || '';
-						}else if( !name ){
+						}else if( !name || name === '' ){
 							name = user?.name || '';
 						}
+
 
 
 						dispatch( handleUpdateUser( user?.id || '', { email, name, password } ) )						
@@ -54,15 +56,15 @@ export const MoreOptionsPage = () => {
 								<CustomInput 
 									type='file'
 									label='Change Image:' 
-									name='img'
-									inputClassName='opacity-0 h-36 w-32 rounded-full absolute'
+									name='file'
+									inputClassName='opacity-0 h-36 w-36 rounded-full absolute mt-14'
 									labelClassName={ `${ auth_wrapper.auth__form_label} mt-0 mb-3` }
 								/>
 
 								<img 
 									src={ (user?.img) ? user.img : UserDefault } 
 									alt="user-image" 
-									className={`${ user?.img ? 'w-36 h-36' : 'w-32 h-36' } rounded-full`}	
+									className={`w-36 h-36 rounded-full`}	
 								/>
 
 								

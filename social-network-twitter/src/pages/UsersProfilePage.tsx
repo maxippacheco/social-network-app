@@ -89,7 +89,7 @@ export const UsersProfilePage = () => {
       
         {/* profile img */}
         <div className="absolute top-56 right left-30 ml-4">
-          <img src={ userImage } alt="profile-img" className="h-32" />
+          <img src={ user.img ? user.img : userImage } alt="profile-img" className="h-32 rounded-full" />
         </div>
 
         <div className='p-5 flex justify-end items-center'>

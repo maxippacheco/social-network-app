@@ -74,7 +74,7 @@ export const HomePage = () => {
               </div>
               
               <div className={ wrapper.post__create_avatar_container }>
-                <img src={ ( user?.img ) ? user.img : UserImage } className={ `${ user?.img ? 'w-14 h-14 rounded-full m-2' :  wrapper.post__avatar_image }` } />            
+                <img src={ ( user?.img ) ? user.img : UserImage } className={ `${ 'w-14 h-14 rounded-full m-2' }` } />            
 
                 <Field
                   className={ wrapper.post__create_input }

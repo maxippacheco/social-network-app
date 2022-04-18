@@ -175,7 +175,7 @@ export const handleUpdateUser = ( id: string, {email, name, password}: UpdateUse
 		try {
 			const { ok, user }:GeneralAuthResponse = await fetchWithToken({ data: { email, name, password }, endpoint: `auth/user/${ id }`, method: 'PUT' });
 
-						
+				
 
 			if ( ok ) {
 				dispatch({

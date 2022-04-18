@@ -52,8 +52,8 @@ export const Post = ({ post, onClick }: PostProps) => {
 		// TODO: FIX STYLE
 		<section className="h-46 border-b border-b-slate-700 flex flex-row p-3 pt-2">
 			<img 
-				src={ (post.user_id._id === user?.id && user?.img) ? user.img : UserImage } 
-				className={`${(post.user_id._id === user?.id && user?.img) ? 'w-14 h-14' : 'w-12 h-14' } m-2 mr-3 rounded-full`}
+				src={ (post.user_id.img ) ? post.user_id.img : UserImage } 
+				className={`${(post.user_id.img) } m-2 mr-3 rounded-full w-14 h-14`}
 			
 			/>
 
