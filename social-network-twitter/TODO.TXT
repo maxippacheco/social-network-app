@@ -1,2 +1,7 @@
 
-hacer likes and retweet reducer para aumentar performance y que la peticion se ejecute en segundo plano
+VALIDATIONS
+CHANGE USER
+CHAT
+BOOKMARK / SAVES
+TRENDINGS
+SEARCH

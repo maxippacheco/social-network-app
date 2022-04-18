@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { handleLoadPosts, handleCreatePost } from '../actions/post';
 import { RootState } from '../store/store';
 import { Loader } from '../components/loader/Loader';
-import { Post as PostInterface } from '../interfaces/interfaces';
 
 const wrapper = {
   container: `w-screen h-screen bg-slate-900 flex flex-row`,
@@ -32,7 +31,8 @@ const wrapper = {
 export const HomePage = () => {
 
   const dispatch = useDispatch();
-  const { posts } = useSelector( ( state: RootState ) => state.post);
+  const { posts } = useSelector( ( state: RootState ) => state.post );
+  const { user } = useSelector( ( state: RootState ) => state.auth );
 
   useEffect(() => {
     dispatch( handleLoadPosts() )    
@@ -40,7 +40,6 @@ export const HomePage = () => {
   
 
   if( !posts ){
-    // TODO: loader component
     return <Loader />
   }
 
@@ -73,9 +72,9 @@ export const HomePage = () => {
                 </div>
               
               </div>
-
+              
               <div className={ wrapper.post__create_avatar_container }>
-                <img src={ UserImage } className={ wrapper.post__avatar_image } />            
+                <img src={ ( user?.img ) ? user.img : UserImage } className={ `${ user?.img ? 'w-14 h-14 rounded-full m-2' :  wrapper.post__avatar_image }` } />            
 
                 <Field
                   className={ wrapper.post__create_input }

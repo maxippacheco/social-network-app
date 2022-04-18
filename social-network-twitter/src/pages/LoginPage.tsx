@@ -8,7 +8,8 @@ import { auth_wrapper } from '../styles/auth-styles';
 import { loginValidations } from '../validations/validations';
 import { useDispatch } from 'react-redux';
 import { handleGoogleLogin, handleLogin } from '../actions/auth';
-import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
+import GoogleLogin, { GoogleLoginResponse } from 'react-google-login';
+
 
 const clientID = import.meta.env.VITE_GOOGLE_CLIENT_ID as string;
 
@@ -55,6 +56,8 @@ export const LoginPage = () => {
                     name='email'
                     type='text'
                     autoComplete= 'off'
+                    labelClassName={auth_wrapper.auth__form_label}
+                    inputClassName={auth_wrapper.auth__form_input}
                   />
 
                   <CustomInput 
@@ -62,6 +65,8 @@ export const LoginPage = () => {
                     name='password'
                     type='password'
                     autoComplete= 'off'
+                    labelClassName={auth_wrapper.auth__form_label}
+                    inputClassName={auth_wrapper.auth__form_input}
                   />
 
                   <CustomInput
@@ -69,6 +74,8 @@ export const LoginPage = () => {
                     type="password" 
                     name="password2"
                     autoComplete= 'off'
+                    labelClassName={auth_wrapper.auth__form_label}
+                    inputClassName={auth_wrapper.auth__form_input}
                   />
                   
                   <Link className={ auth_wrapper.auth__form_link } to='/auth/register'>Don't you have an account?</Link>

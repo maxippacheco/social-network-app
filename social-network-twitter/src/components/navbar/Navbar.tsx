@@ -22,6 +22,7 @@ export const Navbar = () => {
     navbar__nav_profile_options: `w-full flex justify-end text-bold text-3xl`,
 
     post__avatar_image: `w-12 h-14 m-2`,
+    post__user_image: `w-14 h-14 m-2 rounded-full`,
 	}
 
   if( !user ) {
@@ -56,7 +57,7 @@ export const Navbar = () => {
 
           <div className="h-2/5 w-full flex items-end">
             <div className={ wrapper.navbar__nav_profile_container } onClick={ () => navigate('/profile/me') }>
-              <img src={ userImage } className={ `${ wrapper.post__avatar_image } m-0` } />            
+              <img src={ user.img ? user.img : userImage } className={ `${ user.img ? wrapper.post__user_image : wrapper.post__avatar_image } m-0` } />            
               
               <div className={ wrapper.navbar__nav_profile_row }>
                 <span className="text-lg">{ user.name }</span>

@@ -95,7 +95,7 @@ export const UsersProfilePage = () => {
         <div className='p-5 flex justify-end items-center'>
           <button 
             className={
-              user_inSession.user?.following.includes( user.id )
+              isFollowed
               ? `p-3 pr-6 pl-6 bg-sky-500 rounded-full text-white`
               : `p-3 pr-6 pl-6 border-2 border-sky-500 rounded-full text-white`
             }

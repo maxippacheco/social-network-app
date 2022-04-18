@@ -89,3 +89,15 @@ interface User_ID{
 	_id: string;
 
 }
+
+export interface GeneralAuthResponse{
+	ok: boolean;
+	token: string;
+	user: User;
+}
+
+export interface UpdateUser{
+	email: string;
+	name: string;
+	password: string;
+}

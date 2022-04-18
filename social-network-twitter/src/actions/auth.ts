@@ -1,6 +1,8 @@
 import { fetchWithoutToken, fetchWithToken } from '../helpers/fetch';
-import { RegisterResponse, LoginResponse, LoginWithGoogleResponse } from '../interfaces/interfaces';
+import { RegisterResponse, LoginResponse, LoginWithGoogleResponse, GeneralAuthResponse, UpdateUser } from '../interfaces/interfaces';
 import { AppDispatch } from '../store/store';
+// TODO: FIX
+import Swal from 'sweetalert2/dist/sweetalert2.all.js';
 
 interface RegisterData{
 	username: string;
@@ -118,7 +120,7 @@ export const handleRenewToken = () => {
 		
 		try {
 			
-			const { ok, user, token } = await fetchWithToken({ endpoint: 'auth/renew', data: {} ,method: 'PUT' });
+			const { ok, user, token }: GeneralAuthResponse = await fetchWithToken({ endpoint: 'auth/renew', data: {} ,method: 'PUT' });
 		
 			if( ok ){
 					
@@ -164,6 +166,45 @@ export const handleFollowUser = ( id: string ) => {
 		}
 	}
 }
+
+
+export const handleUpdateUser = ( id: string, {email, name, password}: UpdateUser ) => {
+	return async( dispatch: AppDispatch ) => {
+
+
+		try {
+			const { ok, user }:GeneralAuthResponse = await fetchWithToken({ data: { email, name, password }, endpoint: `auth/user/${ id }`, method: 'PUT' });
+
+						
+
+			if ( ok ) {
+				dispatch({
+					type: 'UPDATE_USER',
+					payload: {
+						user
+					}
+				});
+				
+				Swal.fire({
+					title: 'Success',
+					text: 'Your profile has been updated',
+					icon: 'success',
+					confirmButtonText: 'Ok'
+				});
+
+			}
+
+			console.log(ok);
+			
+			
+		} catch (error) {
+			console.log(error);
+			
+		}
+	}
+}
+
+
 
 export const handleLogout = () => ({
 	type: 'LOGOUT'

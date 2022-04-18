@@ -7,6 +7,7 @@ import { Post } from '../components/posts/Post';
 import { MainLayout } from '../layout/MainLayout';
 import { Icon } from '../components/NavIcon/Icon';
 import { Header } from '../components/Header';
+import { useNavigate } from 'react-router-dom';
 
 
 export const ProfilePage = () => {
@@ -15,38 +16,36 @@ export const ProfilePage = () => {
 
   const { user } = useSelector( ( state: RootState) => state.auth );
   const { posts } = useSelector( ( state: RootState) => state.post );
-
-
+  const navigate = useNavigate();
 
 
   return (
     <MainLayout>
-     <section className="flex flex-col w-full basis-1/2 border-r overflow-auto scrollbar-hide relative">
+     <section className="flex flex-col w-full basis-1/ overflow-auto scrollbar-hide relative">
 
         {/* topbar */}
         {/* TODO: Do the topbar fixed */}
         <Header text={ user?.name || '' } tweets={'1.238 tweets'} /> 
 
         {/* banner */}
-        <img src={ banner } alt="banner-sn" className="w-full h-52" />
+        <img src={ banner } alt="banner-sn" className="w-full h-52 object-cover" />
 
       
         {/* profile img */}
         <div className="absolute top-56 right left-30 ml-4">
-          <img src={ userImage } alt="profile-img" className="h-32" />
+          <img src={ user?.img ? user.img : userImage } alt="profile-img" className="h-32 rounded-full" />
         </div>
 
         <div className='p-5 flex justify-end items-center'>
           <button 
-            className='p-3 pr-6 pl-6 border-2 border-sky-500 rounded-full text-white hover:bg-sky-500 cursor-pointer hover:text-white'
-            // TODO: user put
+            className='p-3 pr-6 pl-6 border-2 border-sky-500 rounded-full text-white hover:text-sky-500 cursor-pointer '
+            onClick={ () => navigate('/options') }
           >
-            {/* TODO: fix this hover */}
-            <Icon name={ faUserCircle } size='lg' className='text-sky-500 hover:text-white' /> Edit Profile
+            <Icon name={ faUserCircle } size='lg' className='text-sky-500' /> Edit Profile
           </button>
         </div>
 
-        <div className="border-b h-auto pl-5 flex flex-col">
+        <div className="border-b border-b-slate-700 h-auto pl-5 flex flex-col">
           <span className="text-white text-xl">{ user?.name }</span>
           <span className="text-gray-500">@{ user?.username }</span>
           <div className="flex flex-row mt-3">
@@ -61,18 +60,18 @@ export const ProfilePage = () => {
             <span className='mr-4 text-white'>Liked</span>
           </div>
 
-      </div>
+        </div>
         <div>
-        {
-         
-          posts?.map( ( post ) => {
-            // 1er condicion Si el post es de el usuario actual
-            if( post.user_id._id === user?.id || post.retweet.includes( user?.id ) ) {
-              return <Post key={ post.id } post={ post } />
-            }
-          })
-        }
+          {
           
+            posts?.map( ( post ) => {
+              // 1er condicion Si el post es de el usuario actual
+              if( post.user_id._id === user?.id || post.retweet.includes( user?.id ) ) {
+                return <Post key={ post.id } post={ post } />
+              }
+            })
+          }
+            
         </div>
 
       </section>

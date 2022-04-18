@@ -1,9 +1,10 @@
 import loginBg from '../assets/loginBg.jpg';
 import { auth_wrapper } from '../styles/auth-styles';
-import { Link } from 'react-router-dom';
-import { Field, Form, Formik } from 'formik';
+import { Link, Navigate } from 'react-router-dom';
+import { Form, Formik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { handleRegister } from '../actions/auth';
+import { CustomInput } from '../components/input/CustomInput';
 
 
 export const RegisterPage = () => {
@@ -25,6 +26,8 @@ export const RegisterPage = () => {
             }}
             onSubmit={ async({ username, name, password, email }) => {
               dispatch( handleRegister({ username, name, password, email }) );
+
+              return <Navigate to='/login' />
             }}
             // validationSchema={}
           >
@@ -32,36 +35,44 @@ export const RegisterPage = () => {
               ({ handleSubmit }) => (
                 <Form className={auth_wrapper.auth__form} onSubmit={ handleSubmit }>
                   {/* TODO: IMPLEMENT MY CUSTOM LABEL */}
-                  <label className={auth_wrapper.auth__form_label}>Name:</label>
-                  <Field 
-                    type="name" 
-                    className={auth_wrapper.auth__form_input} 
-                    name="name"
-                    autoComplete="off"
-                  />
-                  <label className={auth_wrapper.auth__form_label}>Username:</label>
-                  <Field 
-                    type="text" 
-                    className={auth_wrapper.auth__form_input} 
-                    name="username"
-                    autoComplete="off"
-                  />
                   
-                  <label className={auth_wrapper.auth__form_label}>Email:</label>
-                  <Field 
-                    type="email" 
-                    className={auth_wrapper.auth__form_input} 
-                    name="email"
-                    autoComplete="off"
+                  <CustomInput
+                    label='Name:' 
+                    type="text" 
+                    name="name"
+                    autoComplete= 'off'
+                    labelClassName={auth_wrapper.auth__form_label}
+                    inputClassName={auth_wrapper.auth__form_input}
                   />
 
-                  <label className={auth_wrapper.auth__form_label}>Password:</label>
-                  <Field 
-                    type="password" 
-                    className={auth_wrapper.auth__form_input} 
-                    name="password"
-                    autoComplete="off"
+                  <CustomInput
+                    label='Username:' 
+                    type="text" 
+                    name="username"
+                    autoComplete= 'off'
+                    labelClassName={auth_wrapper.auth__form_label}
+                    inputClassName={auth_wrapper.auth__form_input}
                   />
+
+                  <CustomInput
+                    label='Email:' 
+                    type="email" 
+                    name="email"
+                    autoComplete= 'off'
+                    labelClassName={auth_wrapper.auth__form_label}
+                    inputClassName={auth_wrapper.auth__form_input}
+                  />
+                  
+                  <CustomInput
+                    label='Password:' 
+                    type="password" 
+                    name="password"
+                    autoComplete= 'off'
+                    labelClassName={auth_wrapper.auth__form_label}
+                    inputClassName={auth_wrapper.auth__form_input}
+                  />
+
+                  
 
                   <Link className={auth_wrapper.auth__form_link} to="/auth/login">
                     Do you have an account?

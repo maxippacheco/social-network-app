@@ -1,13 +1,15 @@
-import UserImage from '../../assets/userImage.png';
+import { RootState } from '../../store/store';
+
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
 import { Post as PostInterface } from '../../interfaces/interfaces';
 import { Icon } from '../NavIcon/Icon';
 import { postIcon } from './postsIcons';
 import { timeFormat } from '../../helpers/timeFormat';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store/store';
-import { useNavigate } from 'react-router-dom';
 import { usePost } from '../../hooks/usePost';
 
+import UserImage from '../../assets/userImage.png';
 
 interface PostProps{ 
 	post: PostInterface;
@@ -49,7 +51,11 @@ export const Post = ({ post, onClick }: PostProps) => {
   	return (
 		// TODO: FIX STYLE
 		<section className="h-46 border-b border-b-slate-700 flex flex-row p-3 pt-2">
-			<img src={ UserImage } className="w-12 h-14 m-2 mr-3" />
+			<img 
+				src={ (post.user_id._id === user?.id && user?.img) ? user.img : UserImage } 
+				className={`${(post.user_id._id === user?.id && user?.img) ? 'w-14 h-14' : 'w-12 h-14' } m-2 mr-3 rounded-full`}
+			
+			/>
 
 			<div className='w-full '>
 				<span className='text-white cursor-pointer' onClick={ navigateToUser }>{ name }</span>
