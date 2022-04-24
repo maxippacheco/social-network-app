@@ -168,13 +168,16 @@ export const handleFollowUser = ( id: string ) => {
 }
 
 
-export const handleUpdateUser = ( id: string, {email, name, password}: UpdateUser ) => {
+export const handleUpdateUser = ( id: string, {email, name, password, img}: UpdateUser ) => {
 	return async( dispatch: AppDispatch ) => {
 
 
 		try {
-			const { ok, user }:GeneralAuthResponse = await fetchWithToken({ data: { email, name, password }, endpoint: `auth/user/${ id }`, method: 'PUT' });
+			const { ok, user, ...rest }:GeneralAuthResponse = await fetchWithToken({ data: { email, name, password, img }, endpoint: `auth/user/${ id }`, method: 'PUT' });
 
+			console.log(rest);
+
+		
 				
 
 			if ( ok ) {
@@ -204,6 +207,31 @@ export const handleUpdateUser = ( id: string, {email, name, password}: UpdateUse
 	}
 }
 
+export const handleDeleteImg = ( img: string, id: string ) => {
+
+	return async( dispatch: AppDispatch ) => {
+				
+
+		try {
+
+			const { ok, user }:GeneralAuthResponse = await fetchWithToken({ data: { img }, endpoint: `uploads/user/${ id }`, method: 'DELETE' });			
+
+			console.log(user);
+
+			if ( ok ) {
+				dispatch({
+					type: 'DELETE_USER_IMG',
+					payload: {
+						user
+					}
+				})
+			}
+
+		} catch (error) {
+			console.log(error);
+		}
+	}
+}
 
 
 export const handleLogout = () => ({

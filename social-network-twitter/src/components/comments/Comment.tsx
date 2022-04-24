@@ -23,10 +23,11 @@ export const Comment = ({ comment }: { comment: CommentElement }) => {
 
 	const { username, name } = comment?.user_id;
 	
+	
   	return (
 		// TODO: FIX STYLE
 		<section className="h-46 border-b border-b-slate-700 flex flex-row p-3 pt-2">
-			<img src={ UserImage } className="w-12 h-14 m-2 mr-3" />
+			<img src={ comment.user_id.img ? comment.user_id.img : UserImage } className="w-14 h-14 rounded-full m-2 mr-3" />
 
 			<div className='w-full '>
 				<span className='text-white cursor-pointer' onClick={ () => navigateToUser( user!, username, navigate ) }>{ name }</span>

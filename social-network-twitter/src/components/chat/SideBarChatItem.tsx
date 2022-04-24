@@ -3,7 +3,7 @@ import UserImage from '../../assets/userImage.png';
 export const SideBarChatItem = () => {
   	return (
       <div className='w-full h-28 flex flex-row items-center hover:bg-slate-700 hover:cursor-pointer'>
-          <img src={ UserImage } className="h-20 ml-3" alt="user" />
+          <img src={ UserImage } className="h-20 ml-3 rounded-full" alt="user" />
           
           <div className='h-full flex flex-col mt-7 w-2/3'>
             <div className='flex flex-row ml-2'>

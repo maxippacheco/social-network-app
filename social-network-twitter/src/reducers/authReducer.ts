@@ -26,7 +26,7 @@ export type AuthAction =
 	| { type: 'FOLLOW_USER', payload: { user: User } }
 	| { type: 'LOGOUT' }
 	| { type: 'UPDATE_USER', payload: { user: User } }
-	| { type: 'UPDATE_USER_IMG', payload: { user: User } }
+	| { type: 'DELETE_USER_IMG', payload: { user: User } }
 
 
 export const authReducer = ( state: AuthState = AuthInitialState, action: AuthAction ): AuthState => {
@@ -50,7 +50,7 @@ export const authReducer = ( state: AuthState = AuthInitialState, action: AuthAc
 				checking: false
 			}
 		
-		case 'UPDATE_USER_IMG':
+		case 'DELETE_USER_IMG':
 		case 'UPDATE_USER':
 		case 'FOLLOW_USER':
 			return {

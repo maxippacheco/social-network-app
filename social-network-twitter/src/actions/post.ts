@@ -115,12 +115,10 @@ export const removeRetweet = ( id: string ) => {
 
 
 export const comment = ( id: string, text: string ) => {
-	return async( dispatch: AppDispatch | Dispatch<any>) => {
+	return async( dispatch: AppDispatch) => {
 		
 		try {
 			const resp = await fetchWithToken({ data: { text }, endpoint: `post/comment/${ id }`, method: 'POST' })
-			
-			console.log(resp);
 			
 			
 			if ( resp.ok ) {

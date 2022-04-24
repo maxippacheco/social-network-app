@@ -6,11 +6,20 @@ import { Form, Formik } from 'formik';
 import { auth_wrapper } from '../styles/auth-styles';
 import UserDefault from '../assets/userImage.png';
 import { RootState } from '../store/store';
+import * as Yup from 'yup';
+import { useRef } from 'react';
+import { PreviewImage } from '../components/previewImage/PreviewImage';
 
 export const MoreOptionsPage = () => {
   
 	const dispatch = useDispatch();
 	const { user } = useSelector((state: RootState) => state.auth);
+
+	const cloudURL = import.meta.env.VITE_CLOUDINARY_URL;
+	if( typeof cloudURL !== 'string' ) throw new Error('Cloudinary URL is not defined');
+
+
+	const fileRef = useRef('');
 
 	const logout = () => {
 		dispatch( handleLogout() );
@@ -28,37 +37,70 @@ export const MoreOptionsPage = () => {
 				<Formik
 					initialValues={{
 						file: null,
-						name: '',
-						email: '',
-						password: '',
-						passwordConfirm: ''
+						email: `${ user?.email }`,
+						name: `${ user?.name }`,
+						password: '*****',
+						passwordConfirm: '*****'
 					}}
-					onSubmit={ async( {email, password, name, file } ) => {
+					onSubmit={ async( {email, password, name, file }, { setFieldValue } ) => {
 
-						// TODO: validate when change email
-						if( !email || email === '' ){
-							email = user?.email || '';
-						}else if( !name || name === '' ){
-							name = user?.name || '';
+	 
+						if( file ){
+
+							// TODO: FIX
+							// if( user?.img ){
+						
+							
+							const formData = new FormData();
+							formData.append('file', file);
+							formData.append('upload_preset', 'react-social-network');
+							
+							fileRef.current = file;
+							
+							try {
+								const resp = await fetch(cloudURL, {
+									method: 'POST',
+									body: formData
+								}).then( resp => resp.json() )
+								
+								
+								dispatch( handleUpdateUser( user?.id || '', { email, name, password, img: resp.secure_url	 } ))							
+								
+							} catch (error) {
+								console.log(error);
+								
+							}
+
+							console.log('submitted');
+							
 						}
-
-
-
-						dispatch( handleUpdateUser( user?.id || '', { email, name, password } ) )						
-					
+						
 						
 					}}
+					validationSchema={ Yup.object().shape({
+						'file': Yup.mixed().required('Required'),
+					})}
 				>
 					{
-						() => (
-							<Form className='w-full flex flex-col'>
+						({ setFieldValue, values }) => (
+							<Form className='w-full flex flex-col relative'>
 								
-								<CustomInput 
-									type='file'
-									label='Change Image:' 
-									name='file'
-									inputClassName='opacity-0 h-36 w-36 rounded-full absolute mt-14'
-									labelClassName={ `${ auth_wrapper.auth__form_label} mt-0 mb-3` }
+								{ values.file && <PreviewImage file={ values.file } /> }
+
+								<label
+									className={ `${ auth_wrapper.auth__form_label} mt-0 mb-3` }
+								>Change Image:</label>
+
+								<input 
+									type="file" 
+									name="file"
+									className='opacity-0 h-36 w-36 rounded-full absolute mt-20'
+									onChange={ (e: React.ChangeEvent<HTMLInputElement> ) => {
+
+										if(!e.currentTarget.files) return;
+
+										setFieldValue('file', e.currentTarget.files[0]);
+									}}
 								/>
 
 								<img 
@@ -109,10 +151,11 @@ export const MoreOptionsPage = () => {
 					}
 				</Formik>
 
-					<h4  className='mt-3 mb-6 ml-0 text-white text-3xl'>Other option:</h4>
+				<h4  className='mt-3 mb-6 ml-0 text-white text-3xl'>Other option:</h4>
 
 				<button className='w-36 bg-red-500 p-3 rounded-full text-white mb-4' onClick={ logout }>Logout</button>
 			</div>
 	 	</MainLayout>
   	)
 }
+							

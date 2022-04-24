@@ -84,12 +84,9 @@ export const LoginPage = () => {
                   <button type="submit" className={ auth_wrapper.auth__form_submit }>Submit</button>
                   
                   <GoogleLogin 
-                    // disabled={ false }
                     className='mt-5 w-3/5 p-3 rounded-lg flex items-center justify-center bg-red-500'
-                    // TODO: Put it in a variable
                     clientId={ clientID }
                     buttonText='Login'
-                    // style={{ backgroundColor: '#4285f4' }}
                     onSuccess={ googleResponse }
                     onFailure={ googleResponse }
                     cookiePolicy='single_host_origin'
