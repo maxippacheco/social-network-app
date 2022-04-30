@@ -1,9 +1,17 @@
+import { Formik, Form } from 'formik';
+import { Navbar } from '../components/navbar/Navbar'
 import { IncomingMessage } from '../components/chat/IncomingMessage'
 import { OutgoingMessage } from '../components/chat/OutgoingMessage'
 import { SideBarChatItem } from '../components/chat/SideBarChatItem'
-import { Navbar } from '../components/navbar/Navbar'
+import { CustomInput } from '../components/input/CustomInput';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
 
 export const ChatPage = () => {
+  
+  const { user } = useSelector((state: RootState) => state.auth);  
+
+
   return (
     <>
       <Navbar />
@@ -26,33 +34,59 @@ export const ChatPage = () => {
           </div>
 
         </div>
-        <SideBarChatItem /> 
-        <SideBarChatItem /> 
-        <SideBarChatItem /> 
-        <SideBarChatItem /> 
-        <SideBarChatItem /> 
-        <SideBarChatItem /> 
+        {
+          user?.following.map( (user) => (
+            <SideBarChatItem user={ user } />
+          ))
+        }
   
       </section>
       
       {/* Chat */}
-      <section className='basis-1/2 border-r h-full w-full scrollbar-hide overflow-auto'>
+      <section className='basis-1/2 h-full w-full scrollbar-hide overflow-auto'>
         <div className='scrollbar-hide overflow-auto w-full h-full'>
-          <IncomingMessage />
-          <OutgoingMessage />
-          <IncomingMessage />
-          <OutgoingMessage />
-          <IncomingMessage />
-          <OutgoingMessage />
-          <IncomingMessage />
-          <OutgoingMessage />
-          <IncomingMessage />
-          <OutgoingMessage />
-          <IncomingMessage />
-          <OutgoingMessage />
+          <div className='w-full relative mb-14'>
+            <IncomingMessage />
+            <OutgoingMessage />
+            <IncomingMessage />
+            <OutgoingMessage />
+            <IncomingMessage />
+            <OutgoingMessage />
+            <IncomingMessage />
+            <OutgoingMessage />
+            <IncomingMessage />
+            <OutgoingMessage />
+            <IncomingMessage />
+            <OutgoingMessage />
+            
+          </div>
+          <Formik 
+            initialValues={{ message: '' }}
+            onSubmit={(values, { setSubmitting }) => {
+              console.log(values);
+            }}
+          >
+            {
+              () => (
+                <Form 
+                  className='h-16 bg-slate-800 absolute bottom-0 flex items-center justify-center' 
+                  style={{ width:'37.5%'}}
+                >
+                  <CustomInput 
+                    type='text'
+                    name='message'
+                    placeholder='Type your message here'	
+                    inputClassName='w-3/4 h-1/2 bg-slate-800 focus:outline-none focus:text-white text-gray-400'
+                  />
+
+                  <button type='submit' className='ml-5 p-2 pr-4 pl-4 bg-sky-500 text-white rounded-lg'>Send</button>
+                </Form>
+              )
+            }
+          </Formik>
+          
         </div>
 
-        <div className='bg-red-600'>dadssa</div>
       </section>
     </>
   )

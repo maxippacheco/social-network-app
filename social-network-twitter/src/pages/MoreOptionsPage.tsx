@@ -9,6 +9,7 @@ import { RootState } from '../store/store';
 import * as Yup from 'yup';
 import { useRef } from 'react';
 import { PreviewImage } from '../components/previewImage/PreviewImage';
+import { fetchWithToken } from '../helpers/fetch';
 
 export const MoreOptionsPage = () => {
   
@@ -39,18 +40,24 @@ export const MoreOptionsPage = () => {
 						file: null,
 						email: `${ user?.email }`,
 						name: `${ user?.name }`,
-						password: '*****',
-						passwordConfirm: '*****'
+						password: '',
+						passwordConfirm: ''
 					}}
-					onSubmit={ async( {email, password, name, file }, { setFieldValue } ) => {
+					onSubmit={ async( {email, password, name, file } ) => {
 
 	 
 						if( file ){
 
 							// TODO: FIX
-							// if( user?.img ){
-						
+							if( user?.img ){
+
+								const image_deleted = await fetchWithToken({ data: {}, endpoint: `uploads/user/${user?.id}`, method: 'DELETE' });
 							
+								console.log( image_deleted );
+								
+
+							}
+						
 							const formData = new FormData();
 							formData.append('file', file);
 							formData.append('upload_preset', 'react-social-network');
@@ -70,15 +77,20 @@ export const MoreOptionsPage = () => {
 								console.log(error);
 								
 							}
-
-							console.log('submitted');
 							
 						}
+
+
+							
 						
 						
 					}}
 					validationSchema={ Yup.object().shape({
 						'file': Yup.mixed().required('Required'),
+						'email': Yup.string().email('Invalid email').required('Required'),
+						'name': Yup.string().required('Required'),
+						'password': Yup.string().required('Required'),
+						'passwordConfirm': Yup.string().required('Required')
 					})}
 				>
 					{

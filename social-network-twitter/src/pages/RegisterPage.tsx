@@ -34,7 +34,6 @@ export const RegisterPage = () => {
             {
               ({ handleSubmit }) => (
                 <Form className={auth_wrapper.auth__form} onSubmit={ handleSubmit }>
-                  {/* TODO: IMPLEMENT MY CUSTOM LABEL */}
                   
                   <CustomInput
                     label='Name:' 

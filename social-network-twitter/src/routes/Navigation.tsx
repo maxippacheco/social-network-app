@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../store/store';
 import { useEffect } from 'react';
 import { handleRenewToken } from '../actions/auth';
+import { handleConnectSocket, handleDisconnectSocket } from '../actions/socket';
+import { handleCleanPost } from '../actions/post';
 
 export const Navigation = () => {
 
@@ -15,14 +17,34 @@ export const Navigation = () => {
 		container: `w-screen h-screen bg-slate-900 flex flex-row`,
 
 	}
-
+	
+	
+	const { isLoggedIn } = useSelector((state: RootState) => state.auth);
+	
 	useEffect(() => {
-		dispatch( handleRenewToken() );
-		
-	}, []);
+		dispatch( handleRenewToken() );	
+	}, [dispatch]);
+	
+	useEffect(() => {
+		if( isLoggedIn ) {
+			dispatch( handleConnectSocket() )
+		}
+	}, [dispatch, isLoggedIn])
 	
 
-	const { isLoggedIn } = useSelector((state: RootState) => state.auth);
+	useEffect(() => {
+		if( !isLoggedIn ) {
+			dispatch( handleDisconnectSocket() );
+		}
+	  
+	}, [dispatch, isLoggedIn])
+
+	useEffect(() => {
+		if( !isLoggedIn ){
+			dispatch( handleCleanPost() );
+		}
+	}, [dispatch]);
+	
 	
 
 

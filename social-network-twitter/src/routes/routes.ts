@@ -5,6 +5,7 @@ import { AuthRouter } from './AuthRouter';
 import { UsersProfilePage } from '../pages/UsersProfilePage';
 import { PostCommentPage } from '../pages/PostCommentPage';
 import { MoreOptionsPage } from '../pages/MoreOptionsPage';
+import { BookmarkPage } from '../pages/BookmarkPage';
 
 type JSXElement = () => JSX.Element;
 
@@ -69,4 +70,12 @@ export const routes: Route[] = [
 		name: 'Options-Page',
 		restriction: 'private'
 	},
+	{
+		to: '/bookmarks',
+		path: '/bookmarks',
+		Component: BookmarkPage,
+		name: 'Bookmarks-Page',
+		restriction: 'private'
+	},
+
 ]

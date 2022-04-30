@@ -16,6 +16,7 @@ export type PostAction =
 	| { type: 'RETWEET', payload: Post }
 	| { type: 'REMOVE_RETWEET', payload: Post }
 	| { type: 'COMMENT_POST', payload: Post }
+	| { type: 'CLEAN_POST'}
 
 
 export const postReducer = ( initialState: PostState = PostInitialState, action: PostAction ) => {
@@ -35,12 +36,12 @@ export const postReducer = ( initialState: PostState = PostInitialState, action:
 				}
 			};
 
-			case 'COMMENT_POST':
-			case 'RETWEET':
-			case 'REMOVE_RETWEET':
-			case 'LIKE':
-			case 'UNLIKE':
-				if( !initialState.posts ) return initialState;
+		case 'COMMENT_POST':
+		case 'RETWEET':
+		case 'REMOVE_RETWEET':
+		case 'LIKE':
+		case 'UNLIKE':
+			if( !initialState.posts ) return initialState;
 				return{
 					...initialState,
 					posts: initialState.posts.map( post => {
@@ -51,6 +52,8 @@ export const postReducer = ( initialState: PostState = PostInitialState, action:
 					})
 				}
 		
+		case 'CLEAN_POST':
+			return initialState;
 
 		default:
 			return initialState;

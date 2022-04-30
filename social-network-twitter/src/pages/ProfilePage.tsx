@@ -12,7 +12,7 @@ export const ProfilePage = () => {
   const { user } = useSelector( ( state: RootState) => state.auth );
   const { posts } = useSelector( ( state: RootState) => state.post );
 
-  if( !user ) return;
+  // if( !user ) return;
 
   return (
     <MainLayout>
@@ -20,7 +20,7 @@ export const ProfilePage = () => {
 
         {/* topbar */}
         {/* TODO: Do the topbar fixed */}
-        <ProfileCard user={ user } />
+        <ProfileCard user={ user! } />
 
         <div>
           {

@@ -36,7 +36,7 @@ export const icons: Icons[] = [
 	},
 	{
 		name: faBookmark,
-		titlePath: '/',
+		titlePath: '/bookmarks',
 		titleText: "Bookmarks",
 		size: "xs",
 		cursor: "cursor-pointer",

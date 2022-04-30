@@ -12,3 +12,5 @@ export const loginValidations = Yup.object({
 	password2: Yup.string().min(6, 'The password must be minimum 6 characters').required('Required').oneOf([Yup.ref('password')], 'password must match'),
 
 });
+
+// TODO: put here the others validations ( files )

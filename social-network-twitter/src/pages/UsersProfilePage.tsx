@@ -8,32 +8,21 @@ import userImage from '../assets/userImage.png';
 import banner from '../assets/banner.jpg';
 
 import { NavIcon } from "../components/NavIcon/NavIcon"
-import { Navbar } from "../components/navbar/Navbar";
-import { Search } from "../components/search/Search";
 import { Post } from '../components/posts/Post';
 
 import { RootState } from '../store/store';
 
-import { handleFollowUser } from '../actions/auth';
-import { fetchWithoutToken } from '../helpers/fetch';
-import { User } from '../interfaces/interfaces';
+import { handleFollowUser, handleUnfollowUser } from '../actions/auth';
 import { MainLayout } from '../layout/MainLayout';
 import { Loader } from '../components/loader/Loader';
+import { useGetUserById } from '../hooks/useGetUserById';
 
 
 export const UsersProfilePage = () => {
 
   const { username } = useParams();
-  const [user, setUser] = useState<User>();
 
-
-  const getUserByUsername = async() => {
-    const resp = await fetchWithoutToken({endpoint: `auth/${username}`, method: 'GET', data: {} });
-
-    if(resp.ok){
-      setUser(resp.user);
-    }
-  }
+  const { user } = useGetUserById(username || '');
 
   // REFACTOR THIS PAGE TO USE IT AS A COMPONENT
 
@@ -43,32 +32,42 @@ export const UsersProfilePage = () => {
   const navigate = useNavigate();
   const [ isFollowed, setIsFollowed ] = useState(false);
 
+
   const followUser = ( id: string ) => {
-    setIsFollowed(true);
     dispatch(handleFollowUser( id ));
   }
 
-  useEffect(() => {
-    getUserByUsername();  
+  const unfollowUser = ( id: string ) => {
+    dispatch(handleUnfollowUser( id ));
 
-  }, []);
+  }
+
+
+
 
   useEffect(() => {
     if( user_inSession.user?.following.includes( user?.id ) ){
       setIsFollowed( true );
+    }else{
+      setIsFollowed( false );
     }
 
-  }, []);
+    return () => {
+      //
+      setIsFollowed( false );
+    }
+  
+  }, [ user_inSession, user ]);
 
 
-  if (!user) {
+  if (!user || !user_inSession ) {
     return <Loader />
   }
 
 
   return (
     <MainLayout>
-      <section className="flex flex-col w-full basis-1/2 border-r overflow-auto scrollbar-hide relative">
+      <section className="flex flex-col w-full basis-1/2 overflow-auto scrollbar-hide relative">
 
         {/* topbar */}
         {/* TODO: Do the topbar fixed */}
@@ -96,11 +95,15 @@ export const UsersProfilePage = () => {
           <button 
             className={
               isFollowed
-              ? `p-3 pr-6 pl-6 bg-sky-500 rounded-full text-white`
+              ? `p-3 pr-6 pl-6 border-2 border-sky-500 bg-sky-500 rounded-full text-white`
               : `p-3 pr-6 pl-6 border-2 border-sky-500 rounded-full text-white`
             }
             // TODO:
-            onClick={ () => followUser( user?.id || '' ) }
+            onClick={ () => {
+              
+              !isFollowed ? followUser( user.id ) : unfollowUser( user.id );
+            
+            }}
           >
             {
               isFollowed
@@ -112,12 +115,12 @@ export const UsersProfilePage = () => {
           </button>
         </div>
 
-        <div className="border-b h-auto pl-5 flex flex-col">
-          <span className="text-white text-xl">{ user?.name }</span>
-          <span className="text-gray-500">@{ user?.username }</span>
+        <div className="border-b border-b-slate-700 h-auto pl-5 flex flex-col">
+          <span className="text-white text-xl">{ user.name }</span>
+          <span className="text-gray-500">@{ user.username }</span>
           <div className="flex flex-row mt-3">
-            <div className="text-white">255 <span className="text-gray-500">following</span></div>
-            <div className="text-white ml-3">265 <span className="text-gray-500">followers</span></div>
+            <div className="text-white">{ user.following.length } <span className="text-gray-500"> following</span></div>
+            <div className="text-white ml-3">{ user.followers.length }<span className="text-gray-500"> followers</span></div>
           </div>
 
           <div className="mt-10 mb-3 flex justify-between">

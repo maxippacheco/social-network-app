@@ -148,13 +148,36 @@ export const handleFollowUser = ( id: string ) => {
 	return async( dispatch: AppDispatch ) => {
 
 		try {
-			const { ok, user_inSession } = await fetchWithToken({ data: {}, endpoint: `follow/${id}`, method: 'POST' });
+			const { ok, user_inSession } = await fetchWithToken({ data: {}, endpoint: `follow/${id}`, method: 'PUT' });
 
 			const user = user_inSession;
 			
 			if ( ok ) {
 				dispatch({
 					type: 'FOLLOW_USER',
+					payload: {
+						user
+					}
+				});
+				
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	}
+}
+
+export const handleUnfollowUser = ( id: string ) => {
+	return async( dispatch: AppDispatch ) => {
+
+		try {
+			const { ok, user_inSession } = await fetchWithToken({ data: {}, endpoint: `follow/unfollow/${id}`, method: 'PUT' });
+
+			const user = user_inSession;
+			
+			if ( ok ) {
+				dispatch({
+					type: 'UNFOLLOW_USER',
 					payload: {
 						user
 					}

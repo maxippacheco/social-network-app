@@ -5,7 +5,7 @@ import { Navbar } from "../components/navbar/Navbar";
 import { Search } from "../components/search/Search";
 import { Post } from "../components/posts/Post";
 import { Formik, Form, Field } from 'formik';
-import { useEffect } from "react";
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { handleLoadPosts, handleCreatePost } from '../actions/post';
 import { RootState } from '../store/store';
@@ -30,9 +30,11 @@ const wrapper = {
 
 export const HomePage = () => {
 
-  const dispatch = useDispatch();
+  const dispatch: any = useDispatch();
   const { posts } = useSelector( ( state: RootState ) => state.post );
   const { user } = useSelector( ( state: RootState ) => state.auth );
+
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     dispatch( handleLoadPosts() )    
@@ -54,14 +56,18 @@ export const HomePage = () => {
               post: ''
             }}
             onSubmit={ async(values, { resetForm }) => {
-              await dispatch( handleCreatePost( { text: values.post.replace('\n', '') }.text ) )
+              setLoading(true);
+
+              await dispatch( handleCreatePost( { text: values.post.replace('\n', '') }.text ) ).then(() => {
+                setLoading(false); 
+              })
 
               resetForm();
             }}
           >
           {
             ({ handleSubmit }) => (
-            <Form className={ wrapper.post__create_container } onSubmit={ handleSubmit }>
+            <Form className={ `${ wrapper.post__create_container} ${ loading ? 'opacity-20' : 'opacity-100'}` } onSubmit={ handleSubmit }>
 
               <div className={ wrapper.post__create_welcome_container }>
 

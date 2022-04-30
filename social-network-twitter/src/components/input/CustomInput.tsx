@@ -11,17 +11,18 @@ interface CustomInputProps {
 	labelClassName?: string;
 	ref?: MutableRefObject<any> | LegacyRef<any>;
 	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	inputPlaceholder?: string;
 	// ref?: Ref<RefObject <any>>;
 }
 
-export const CustomInput = ({ label, inputClassName, labelClassName, ref, ...props}: CustomInputProps ) => {
+export const CustomInput = ({ label, inputClassName, labelClassName, ref, inputPlaceholder, ...props}: CustomInputProps ) => {
 
 	const [ field ] = useField( props );
 
   	return (
 		<>
    		<label className={ labelClassName  } htmlFor={ props.name || props.id /* id = key */ }>{ label }</label>
-      	<input className={ inputClassName } ref={ ref } { ...props } { ...field } />
+      	<input className={ inputClassName } placeholder={ inputPlaceholder } ref={ ref } { ...props } { ...field } />
    		<ErrorMessage name={ props.name } className='w-2/3 text-left text-lg text-red-500' component='span'  />
 		</>
 

@@ -24,6 +24,7 @@ export type AuthAction =
 	| { type: 'GOOGLE_LOGIN', payload: { token: string, user: User }}
 	| { type: 'RENEW_TOKEN', payload: { token: string, user: User }}
 	| { type: 'FOLLOW_USER', payload: { user: User } }
+	| { type: 'UNFOLLOW_USER', payload: { user: User } }
 	| { type: 'LOGOUT' }
 	| { type: 'UPDATE_USER', payload: { user: User } }
 	| { type: 'DELETE_USER_IMG', payload: { user: User } }
@@ -50,9 +51,10 @@ export const authReducer = ( state: AuthState = AuthInitialState, action: AuthAc
 				checking: false
 			}
 		
+		case 'UNFOLLOW_USER':
+		case 'FOLLOW_USER':
 		case 'DELETE_USER_IMG':
 		case 'UPDATE_USER':
-		case 'FOLLOW_USER':
 			return {
 				...state,
 				user: action.payload.user,

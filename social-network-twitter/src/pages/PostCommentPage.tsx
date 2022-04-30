@@ -37,7 +37,7 @@ export const PostCommentPage = () => {
 						posts?.map( ( post: PostInterface ) => (
 							( post.id === postId ) && (
 								<>						
-									<PostComment postMap={ post } />
+									<PostComment postMap={ post } key={ post.id } />
 									{/* Tweet your answer */}
 									<Formik
 										initialValues={ { comment: '' } }

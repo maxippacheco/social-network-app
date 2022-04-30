@@ -141,3 +141,8 @@ export const comment = ( id: string, text: string ) => {
 } 
 
 export const save = () => console.log('save');
+
+
+export const handleCleanPost = () => ({
+	type: 'CLEAN_POST'
+});
