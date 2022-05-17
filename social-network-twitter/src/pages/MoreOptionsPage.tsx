@@ -10,6 +10,7 @@ import * as Yup from 'yup';
 import { useRef } from 'react';
 import { PreviewImage } from '../components/previewImage/PreviewImage';
 import { fetchWithToken } from '../helpers/fetch';
+import { handleDisconnectSocket } from '../actions/socket';
 
 export const MoreOptionsPage = () => {
   
@@ -24,6 +25,7 @@ export const MoreOptionsPage = () => {
 
 	const logout = () => {
 		dispatch( handleLogout() );
+		dispatch( handleDisconnectSocket() );
 
 		localStorage.removeItem( 'token' );
 	}

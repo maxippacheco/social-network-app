@@ -8,7 +8,11 @@ export const SideBarChatItem = ({ user }: { user: User }) => {
     <div className='w-full h-28 flex flex-row items-center hover:bg-slate-700 hover:cursor-pointer'>
       <div className='relative'>
         <img src={ user.img ? user.img : UserImage } className="h-20 ml-3 rounded-full" alt="user" />
-        <span className='bg-green-500 h-5 w-5 absolute bottom-0 right-2 rounded-full' />
+        {
+          ( user.online ) && (
+            <span className='bg-green-500 h-5 w-5 absolute bottom-0 right-2 rounded-full' />
+          )
+        }
       </div>
       
       <div className='h-full flex flex-col mt-7 w-2/3'>

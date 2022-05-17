@@ -4,13 +4,19 @@ import { IncomingMessage } from '../components/chat/IncomingMessage'
 import { OutgoingMessage } from '../components/chat/OutgoingMessage'
 import { SideBarChatItem } from '../components/chat/SideBarChatItem'
 import { CustomInput } from '../components/input/CustomInput';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../store/store';
 
 export const ChatPage = () => {
-  
-  const { user } = useSelector((state: RootState) => state.auth);  
 
+  const dispatch = useDispatch()
+  const { user } = useSelector((state: RootState) => state.auth);  
+  const { socket } = useSelector((state: RootState) => state.socket);
+  const { onlineUsers } = useSelector((state: RootState) => state.chat);
+
+
+
+  if( !user ) return;
 
   return (
     <>
@@ -35,8 +41,12 @@ export const ChatPage = () => {
 
         </div>
         {
-          user?.following.map( (user) => (
-            <SideBarChatItem user={ user } />
+
+          onlineUsers?.map( (userOnline) => (
+            (userOnline.id !== user?.id && userOnline.followers.includes(user?.id)) &&
+              (
+                <SideBarChatItem user={ userOnline } />
+              )
           ))
         }
   

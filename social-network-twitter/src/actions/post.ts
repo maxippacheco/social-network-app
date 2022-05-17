@@ -1,6 +1,6 @@
 import { AppDispatch } from "../store/store"
 import { fetchWithToken } from '../helpers/fetch';
-import { Post, PostResponse } from "../interfaces/interfaces";
+import { PostResponse } from "../interfaces/interfaces";
 import { Dispatch } from "react";
 
 

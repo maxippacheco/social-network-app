@@ -22,7 +22,9 @@ export const UsersProfilePage = () => {
 
   const { username } = useParams();
 
-  const { user } = useGetUserById(username || '');
+  const [ isFollowed, setIsFollowed ] = useState<boolean>(false);
+
+  const { user, getUserByUsername } = useGetUserById(username || '');
 
   // REFACTOR THIS PAGE TO USE IT AS A COMPONENT
 
@@ -30,34 +32,55 @@ export const UsersProfilePage = () => {
   const { posts } = useSelector( ( state: RootState) => state.post );
   const user_inSession = useSelector( ( state: RootState) => state.auth );
   const navigate = useNavigate();
-  const [ isFollowed, setIsFollowed ] = useState(false);
 
 
   const followUser = ( id: string ) => {
     dispatch(handleFollowUser( id ));
+  
   }
 
   const unfollowUser = ( id: string ) => {
     dispatch(handleUnfollowUser( id ));
 
+  }  
+
+
+  // TODO: refresh user
+  const switchFollow = () => { 
+    setIsFollowed(!isFollowed);
+
+    if(isFollowed) {
+      unfollowUser(user?.id || '');
+    } else {
+      followUser(user?.id || '');
+    }
+
   }
 
-
-
-
   useEffect(() => {
+    
     if( user_inSession.user?.following.includes( user?.id ) ){
+    
       setIsFollowed( true );
+      console.log('followed');
+      
+    
     }else{
+    
       setIsFollowed( false );
+      console.log('not followed');
+
     }
 
-    return () => {
-      //
-      setIsFollowed( false );
-    }
+    
+    // return () => {
+        
+    //   setIsFollowed( false );
+    // }
+      
+  }, [ user, user_inSession ]);
   
-  }, [ user_inSession, user ]);
+  
 
 
   if (!user || !user_inSession ) {
@@ -94,19 +117,15 @@ export const UsersProfilePage = () => {
         <div className='p-5 flex justify-end items-center'>
           <button 
             className={
-              isFollowed
+              isFollowed === true
               ? `p-3 pr-6 pl-6 border-2 border-sky-500 bg-sky-500 rounded-full text-white`
               : `p-3 pr-6 pl-6 border-2 border-sky-500 rounded-full text-white`
             }
             // TODO:
-            onClick={ () => {
-              
-              !isFollowed ? followUser( user.id ) : unfollowUser( user.id );
-            
-            }}
+            onClick={ switchFollow }
           >
             {
-              isFollowed
+              isFollowed === true
               ?
               'Following'
               :

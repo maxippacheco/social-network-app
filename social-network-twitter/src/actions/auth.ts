@@ -150,7 +150,7 @@ export const handleFollowUser = ( id: string ) => {
 		try {
 			const { ok, user_inSession } = await fetchWithToken({ data: {}, endpoint: `follow/${id}`, method: 'PUT' });
 
-			const user = user_inSession;
+			const user = user_inSession;			
 			
 			if ( ok ) {
 				dispatch({

@@ -1,4 +1,3 @@
-import { io } from "socket.io-client";
 
 
 interface SocketState{
@@ -22,7 +21,7 @@ export const socketReducer = ( state: SocketState = SocketInitialState, action: 
 		case 'CONNECT_SOCKET':
 			return {
 				...state,
-				socket: action.payload,
+				socket: action.payload.socket,
 				// online: true,
 			}
 		

@@ -8,6 +8,8 @@ import { useEffect } from 'react';
 import { handleRenewToken } from '../actions/auth';
 import { handleConnectSocket, handleDisconnectSocket } from '../actions/socket';
 import { handleCleanPost } from '../actions/post';
+import { User } from '../interfaces/interfaces';
+import { getOnlineUsers } from '../actions/chat';
 
 export const Navigation = () => {
 
@@ -20,6 +22,7 @@ export const Navigation = () => {
 	
 	
 	const { isLoggedIn } = useSelector((state: RootState) => state.auth);
+	const { socket } = useSelector((state: RootState) => state.socket);
 	
 	useEffect(() => {
 		dispatch( handleRenewToken() );	
@@ -44,6 +47,17 @@ export const Navigation = () => {
 			dispatch( handleCleanPost() );
 		}
 	}, [dispatch]);
+
+
+  useEffect(() => {
+    socket?.on('users-online', (onlineUsers: User[]) => {
+      console.log(onlineUsers);
+      
+      dispatch(getOnlineUsers(onlineUsers));
+      
+    })
+
+  }, [socket, dispatch]);
 	
 	
 

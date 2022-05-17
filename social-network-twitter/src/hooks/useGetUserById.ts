@@ -18,12 +18,13 @@ export const useGetUserById = ( username: string ) => {
   useEffect(() => {
     getUserByUsername();  
 
-  }, [user]);
+  }, []);
 
 
   	return {
 		user,
-		setUser
+		setUser,
+    getUserByUsername
  	};
 
 
