@@ -12,7 +12,8 @@ export const ChatPage = () => {
   const dispatch = useDispatch()
   const { user } = useSelector((state: RootState) => state.auth);  
   const { socket } = useSelector((state: RootState) => state.socket);
-  const { onlineUsers } = useSelector((state: RootState) => state.chat);
+  const { onlineUsers, activeChat, messages } = useSelector((state: RootState) => state.chat);
+  
 
 
 
@@ -43,9 +44,10 @@ export const ChatPage = () => {
         {
 
           onlineUsers?.map( (userOnline) => (
-            (userOnline.id !== user?.id && userOnline.followers.includes(user?.id)) &&
+            (userOnline.id !== user.id) && 
+            // (userOnline.id !== user?.id && userOnline.followers.includes(user?.id)) &&
               (
-                <SideBarChatItem user={ userOnline } />
+                <SideBarChatItem user={ userOnline } key={ userOnline.id } />
               )
           ))
         }
@@ -56,24 +58,34 @@ export const ChatPage = () => {
       <section className='basis-1/2 h-full w-full scrollbar-hide overflow-auto'>
         <div className='scrollbar-hide overflow-auto w-full h-full'>
           <div className='w-full relative mb-14'>
-            <IncomingMessage />
-            <OutgoingMessage />
-            <IncomingMessage />
-            <OutgoingMessage />
-            <IncomingMessage />
-            <OutgoingMessage />
-            <IncomingMessage />
-            <OutgoingMessage />
-            <IncomingMessage />
-            <OutgoingMessage />
-            <IncomingMessage />
-            <OutgoingMessage />
+            
+            {
+              messages.map( message => (
+                (message.to === user.id) 
+                  ? <OutgoingMessage text={ message.message } key={ message.message } />
+                  : <IncomingMessage text={ message.message } key={ message.message} />
+
+              ))
+            }
             
           </div>
           <Formik 
             initialValues={{ message: '' }}
-            onSubmit={(values, { setSubmitting }) => {
-              console.log(values);
+            onSubmit={ (values) => {  
+              socket.emit('new-message', {
+                message: values.message,
+                to: activeChat,
+                from: user.id
+              })
+
+              dispatch({
+                type: 'NEW_MESSAGE',
+                payload: {
+                  message: values.message,
+                  to: activeChat,
+                  from: user.id
+                }
+              })
             }}
           >
             {

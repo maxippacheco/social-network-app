@@ -1,11 +1,22 @@
 import UserImage from '../../assets/userImage.png';
 import { User } from '../../interfaces/interfaces';
+import { useDispatch } from 'react-redux';
+import { handleActiveChat } from '../../actions/chat';
 
 export const SideBarChatItem = ({ user }: { user: User }) => {
   
+  const dispatch = useDispatch();
   
+  const activeChat = () => {
+    dispatch( handleActiveChat( user.id ) )
+  }
+
+  const onSelect = () => {
+    
+  }
+
   return (
-    <div className='w-full h-28 flex flex-row items-center hover:bg-slate-700 hover:cursor-pointer'>
+    <div className='w-full h-28 flex flex-row items-center hover:bg-slate-700 hover:cursor-pointer' onClick={ activeChat }>
       <div className='relative'>
         <img src={ user.img ? user.img : UserImage } className="h-20 ml-3 rounded-full" alt="user" />
         {

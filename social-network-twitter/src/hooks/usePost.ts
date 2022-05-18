@@ -71,7 +71,7 @@ export const usePost = ( post: Post ) => {
 		if( post?.likes.includes( user?.id )){
 			setLiked(true);
 		}else{
-			setRetweeted( false );
+			setLiked( false );
 		}
 
 	},	[post]);

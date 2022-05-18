@@ -21,7 +21,7 @@ export const useGetUserById = ( username: string ) => {
   }, []);
 
 
-  	return {
+	return {
 		user,
 		setUser,
     getUserByUsername
