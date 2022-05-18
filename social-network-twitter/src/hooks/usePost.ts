@@ -68,7 +68,7 @@ export const usePost = ( post: Post ) => {
 
 		if(!post.likes) return;
 
-		if( post?.likes.includes( user?.id )){
+		if( post?.likes.find( item => item === user?.id ) ){
 			setLiked(true);
 		}else{
 			setLiked( false );
@@ -80,7 +80,7 @@ export const usePost = ( post: Post ) => {
 
 		if( !post.retweet ) return;
 
-		if( post?.retweet.includes( user?.id )){
+		if( post?.retweet.find( item => item === user?.id ) ){
 			setRetweeted(true);			
 		}  
 	

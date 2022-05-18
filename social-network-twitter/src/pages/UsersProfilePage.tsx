@@ -16,6 +16,7 @@ import { handleFollowUser, handleUnfollowUser } from '../actions/auth';
 import { MainLayout } from '../layout/MainLayout';
 import { Loader } from '../components/loader/Loader';
 import { useGetUserById } from '../hooks/useGetUserById';
+import { User } from '../interfaces/interfaces';
 
 
 export const UsersProfilePage = () => {
@@ -47,13 +48,12 @@ export const UsersProfilePage = () => {
   }  
 
   useEffect(() => {
-    if( user_inSession.user?.following.find( item => item === user?.id)  ){
+    if( user_inSession.user?.following.find( item => item === user?.id ) ){
       setIsFollowed( true );
       
     }else{
       setIsFollowed( false );
     }
-
     
   }, [ user_inSession, user ]);
   
@@ -71,7 +71,32 @@ export const UsersProfilePage = () => {
   }
   
   
-  
+  const handleFollowStatus = (user: User) => {
+    if( !user ) return;
+
+    console.log( user )
+    const inStorage = user.followers.find( item => item === user_inSession?.user?.id );
+
+
+    if(isFollowed){
+      if(inStorage){
+        return user.followers.length;
+      }else{
+        return user.followers.length + 1;
+      }
+
+    }else{
+      
+      if(inStorage){ 
+        return user.followers.length - 1;
+      }else {
+        return user.followers.length;
+      }
+
+
+    }
+  }
+
   
   
 
@@ -131,7 +156,7 @@ export const UsersProfilePage = () => {
           <span className="text-gray-500">@{ user.username }</span>
           <div className="flex flex-row mt-3">
             <div className="text-white">{ user.following.length } <span className="text-gray-500"> following</span></div>
-            <div className="text-white ml-3">{ user.followers.length }<span className="text-gray-500"> followers</span></div>
+            <div className="text-white ml-3">{handleFollowStatus( user )}<span className="text-gray-500"> followers</span></div>
           </div>
 
           <div className="mt-10 mb-3 flex justify-between">
