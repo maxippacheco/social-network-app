@@ -17,92 +17,25 @@ import { MainLayout } from '../layout/MainLayout';
 import { Loader } from '../components/loader/Loader';
 import { useGetUserById } from '../hooks/useGetUserById';
 import { User } from '../interfaces/interfaces';
+import { useFollow } from '../hooks/useFollow';
 
 
 export const UsersProfilePage = () => {
 
   const { username } = useParams();
-
+  const { posts } = useSelector( ( state: RootState) => state.post );
+  
   const { user } = useGetUserById(username || '');
   const user_inSession = useSelector( ( state: RootState) => state.auth );
-
-  const [ isFollowed, setIsFollowed ] = useState( false );
-
-  // console.log(isFollowed);
-  // console.log(user_inSession.user?.following);
-  
-
-  // REFACTOR THIS PAGE TO USE IT AS A COMPONENT
-
-  const dispatch = useDispatch();
-  const { posts } = useSelector( ( state: RootState) => state.post );
-  const navigate = useNavigate();
-
-
-  const followUser = ( id: string ) => {
-    dispatch(handleFollowUser( id ));
-  }
-
-  const unfollowUser = ( id: string ) => {
-    dispatch(handleUnfollowUser( id ));
-  }  
-
-  useEffect(() => {
-    if( user_inSession.user?.following.find( item => item === user?.id ) ){
-      setIsFollowed( true );
-      
-    }else{
-      setIsFollowed( false );
-    }
-    
-  }, [ user_inSession, user ]);
-  
-
-  // TODO: refresh user
-  const switchFollow = () => { 
-    
-  
-    if( !isFollowed ) {
-      followUser(user?.id || '');
-    } else {
-      unfollowUser(user?.id || '');
-    }
-    
-  }
-  
-  
-  const handleFollowStatus = (user: User) => {
-    if( !user ) return;
-
-    console.log( user )
-    const inStorage = user.followers.find( item => item === user_inSession?.user?.id );
-
-
-    if(isFollowed){
-      if(inStorage){
-        return user.followers.length;
-      }else{
-        return user.followers.length + 1;
-      }
-
-    }else{
-      
-      if(inStorage){ 
-        return user.followers.length - 1;
-      }else {
-        return user.followers.length;
-      }
-
-
-    }
-  }
-
-  
-  
 
   if (!user || !user_inSession ) {
     return <Loader />
   }
+  
+  const { handleFollowStatus, isFollowed, switchFollow } = useFollow(user);
+
+  const navigate = useNavigate();
+
 
 
   return (
