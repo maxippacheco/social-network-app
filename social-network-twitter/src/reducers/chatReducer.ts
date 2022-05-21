@@ -16,12 +16,13 @@ const ChatInitialState = {
 }
 
 type ChatAction = 
-	| { type: 'NEW_MESSAGE', payload:{ from: string, to: string } }
+	| { type: 'NEW_MESSAGE', payload: { from: string, to: string } }
 	| { type: 'LOAD_ONLINE_USERS', payload: User[] }
 	| { type: 'ACTIVE_CHAT', payload: string }
-	| { type: 'SET_UID', payload: string }
+	| { type: 'LOAD_MESSAGES', payload: Message[] }
+	// TODO: clean state
 
-export const chatReducer = (state: ChatState = ChatInitialState, action: ChatAction) => {
+export const chatReducer = (state: ChatState = ChatInitialState, action: ChatAction): ChatState => {
 
 	switch (action.type) {
 
@@ -32,6 +33,8 @@ export const chatReducer = (state: ChatState = ChatInitialState, action: ChatAct
 			}
 		
 		case 'ACTIVE_CHAT':
+			
+   		if( state.activeChat === action.payload ) return state;
 			return {
 				...state,
 				activeChat: action.payload
@@ -41,12 +44,18 @@ export const chatReducer = (state: ChatState = ChatInitialState, action: ChatAct
 			if( state.activeChat === action.payload.from || state.activeChat === action.payload.to ){
 				return{
 					...state,
-					mensajes: [ ...state.messages, action.payload ]
+					messages: [ ...state.messages, action.payload ]
 				}
 			}else{
 				return state;
 			}
 
+		case 'LOAD_MESSAGES':
+			return {
+				...state,
+				messages: [...action.payload]
+			}
+			
 
 		default:
 			return state;

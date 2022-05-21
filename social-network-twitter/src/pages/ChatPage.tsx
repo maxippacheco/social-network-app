@@ -13,9 +13,27 @@ export const ChatPage = () => {
   const { user } = useSelector((state: RootState) => state.auth);  
   const { socket } = useSelector((state: RootState) => state.socket);
   const { onlineUsers, activeChat, messages } = useSelector((state: RootState) => state.chat);
+
   
+    // const onSelect = async() => {
+    //     dispatch({
+    //         type: types.activarChat,
+    //         payload: usuario.uid
+    //     });
 
+    //     // Cargar mensajes del chat
 
+    //     const resp = await fetchConToken(`mensajes/${ usuario.uid }`);
+
+    //     dispatch({
+    //         type: types.cargarMensajes,
+    //         payload: resp.mensajes
+    //     });
+
+    //     // Mover el scroll 
+    //     scrollToBottom('mensajes');
+    // };
+    
 
   if( !user ) return;
 
@@ -61,7 +79,7 @@ export const ChatPage = () => {
             
             {
               messages.map( message => (
-                (message.to === user.id) 
+                (message.from === user.id) 
                   ? <OutgoingMessage text={ message.message } key={ message.message } />
                   : <IncomingMessage text={ message.message } key={ message.message} />
 
@@ -71,7 +89,7 @@ export const ChatPage = () => {
           </div>
           <Formik 
             initialValues={{ message: '' }}
-            onSubmit={ (values) => {  
+            onSubmit={ (values, { resetForm }) => {  
               socket.emit('new-message', {
                 message: values.message,
                 to: activeChat,
@@ -86,6 +104,10 @@ export const ChatPage = () => {
                   from: user.id
                 }
               })
+
+              
+              resetForm();
+
             }}
           >
             {

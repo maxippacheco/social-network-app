@@ -39,7 +39,7 @@ export const HomePage = () => {
   useEffect(() => {
     dispatch( handleLoadPosts() )    
   }, [ dispatch ])
-  
+
 
   if( !posts ){
     return <Loader />
