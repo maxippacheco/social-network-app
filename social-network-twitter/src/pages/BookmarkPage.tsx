@@ -1,8 +1,36 @@
-import { faFolderOpen } from "@fortawesome/free-solid-svg-icons";
-import { Icon } from "../components/NavIcon/Icon";
+import { useState } from 'react';
+import { ChangeEvent } from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../store/store';
 import { MainLayout } from "../layout/MainLayout";
+import { BookmarkCard } from "../components/bookmark";
+import { handleCreateBookmark } from '../actions/bookmark';
 
 export const BookmarkPage = () => {
+
+   const [isOpened, setIsOpened] = useState(false);
+   const [inputValue, setInputValue] = useState('');
+   
+   const dispatch = useDispatch();
+   const { userBookmarks } = useSelector( (state: RootState) => state.bookmarks);
+
+   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+      setInputValue(e.target.value);
+   }
+
+   const toggle = () => {
+      setIsOpened(!isOpened);
+      
+   }
+
+   const createBookmark = () => {
+
+      if(inputValue.length > 0) {
+         dispatch(handleCreateBookmark(inputValue));   
+         setInputValue('');
+      }
+   }
+
    return (
       <MainLayout>
          <>
@@ -11,30 +39,45 @@ export const BookmarkPage = () => {
             </h1>
 
             <div className="grid grid-cols-3 gap-2 mr-2 ml-2">
-               <div className="p-5 h-32 bg-slate-800 flex flex-col justify-center items-center text-white rounded-lg hover:bg-slate-700 cursor-pointer">
-                  <Icon name={faFolderOpen} size="2x" />
-                  <span className="mt-2">Default</span>
-               </div>
-               <div className="p-5 h-32 bg-slate-800 flex justify-center items-center text-white rounded-lg">
-                  <Icon name={faFolderOpen} size="2x" />
-               </div>
-               <div className="p-5 h-32 bg-slate-800 flex justify-center items-center text-white rounded-lg">
-                  <Icon name={faFolderOpen} size="2x" />
-               </div>
-               <div className="p-5 h-32 bg-slate-800 flex justify-center items-center text-white rounded-lg">
-                  <Icon name={faFolderOpen} size="2x" />
-               </div>
-               <div className="p-5 h-32 bg-slate-800 flex justify-center items-center text-white rounded-lg">
-                  <Icon name={faFolderOpen} size="2x" />
-               </div>
-               <div className="p-5 h-32 bg-slate-800 flex justify-center items-center text-white rounded-lg">
-                  <Icon name={faFolderOpen} size="2x" />
-               </div>
-            </div>
+               {
+                  userBookmarks.map( (bookmark) => (
+                     <BookmarkCard { ...bookmark } key={ bookmark.id } />
+                  ))
+               }
 
-            <div className="w-full mt-5 text-center p-2">
-              <span className="bg-slate-800 p-2 pr-4 pl-4 text-xl text-white">Create a new bookmark</span>
             </div>
+         
+            <div className="w-full mt-5 text-center p-2">
+              <button 
+                 className="bg-slate-800 p-2 pr-4 pl-4 text-xl text-white hover:bg-slate-700 cursor-pointer"
+                 onClick={toggle}
+              >Create a new bookmark</button>
+            </div>
+               {
+                  isOpened && (
+                     <>
+                        <form className="mt-5 flex items-center flex-col" onSubmit={(ev) => ev.preventDefault()}>
+                           <input 
+                              type="text" 
+                              className="w-4/5 p-2.5 bg-slate-900 border focus:outline-none focus:text-white text-gray-700" 
+                              onChange={onChange}
+                           />
+
+                           <div className="mt-7">
+                              <button 
+                                 className="bg-slate-800 p-2 pr-4 pl-4 text-xl text-white mr-4 hover:bg-green-800 cursor-pointer"
+                                 onClick={ createBookmark }
+                              >Create a new one</button>
+                              <button 
+                                 className="bg-slate-800 p-2 pr-4 pl-4 text-xl text-white hover:bg-red-800 cursor-pointer"
+                                 onClick={() => setIsOpened(false)}   
+                              >Cancel</button>
+
+                           </div>
+                        </form>                     
+                     </>
+                  )
+               }
 
          </>
       </MainLayout>

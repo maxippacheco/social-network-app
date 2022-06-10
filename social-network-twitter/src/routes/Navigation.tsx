@@ -10,6 +10,8 @@ import { handleConnectSocket, handleDisconnectSocket } from '../actions/socket';
 import { handleCleanPost } from '../actions/post';
 import { User } from '../interfaces/interfaces';
 import { getOnlineUsers } from '../actions/chat';
+import { scrollToBottomAnimated } from '../helpers/scroll';
+import { animateScroll } from 'react-scroll';
 
 export const Navigation = () => {
 
@@ -24,6 +26,8 @@ export const Navigation = () => {
 	const { isLoggedIn } = useSelector((state: RootState) => state.auth);
 	const { socket } = useSelector((state: RootState) => state.socket);
 	
+
+	// TODO: put these effects in a separate file
 	useEffect(() => {
 		dispatch( handleRenewToken() );	
 	}, [dispatch]);
@@ -48,22 +52,33 @@ export const Navigation = () => {
 		}
 	}, [dispatch]);
 
-
   useEffect(() => {
-    socket?.on('users-online', (onlineUsers: User[]) => {
-      console.log(onlineUsers);
+		socket?.on('users-online', (onlineUsers: User[]) => {
       
       dispatch(getOnlineUsers(onlineUsers));
       
     })
-
+		
   }, [socket, dispatch]);
+	
+	useEffect(() => {
+		socket?.on('new-message', (message: any) => {
+
+			dispatch({
+				type: 'NEW_MESSAGE',
+				payload: message
+			})
+			
+			scrollToBottomAnimated('messages');
+		})
+	}, [socket])
+
 	
 	
 
 
 	return (
-    	<div className={wrapper.container}>
+    	<div className={wrapper.container} id="main">
 			<BrowserRouter>
 				
 				<Routes>

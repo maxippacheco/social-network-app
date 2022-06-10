@@ -16,7 +16,7 @@ const ChatInitialState = {
 }
 
 type ChatAction = 
-	| { type: 'NEW_MESSAGE', payload: { from: string, to: string } }
+	| { type: 'NEW_MESSAGE', payload: Message }
 	| { type: 'LOAD_ONLINE_USERS', payload: User[] }
 	| { type: 'ACTIVE_CHAT', payload: string }
 	| { type: 'LOAD_MESSAGES', payload: Message[] }

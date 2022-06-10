@@ -6,6 +6,7 @@ import { UsersProfilePage } from '../pages/UsersProfilePage';
 import { PostCommentPage } from '../pages/PostCommentPage';
 import { MoreOptionsPage } from '../pages/MoreOptionsPage';
 import { BookmarkPage } from '../pages/BookmarkPage';
+import { EditBookmarkPage } from '../pages/EditBookmarkPage';
 
 type JSXElement = () => JSX.Element;
 
@@ -42,6 +43,7 @@ export const routes: Route[] = [
 		restriction: 'private'
 
 	},
+	// todo: fix
 	{
 		to: '/chat',
 		path: 'chat',
@@ -77,5 +79,11 @@ export const routes: Route[] = [
 		name: 'Bookmarks-Page',
 		restriction: 'private'
 	},
-
+	{
+		to: '/bookmarks/:id',
+		path: '/bookmarks/:id',
+		Component: EditBookmarkPage,
+		name: 'Edit-Bookmark-Page',
+		restriction: 'private'
+	},
 ]

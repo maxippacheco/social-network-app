@@ -14,26 +14,6 @@ export const ChatPage = () => {
   const { socket } = useSelector((state: RootState) => state.socket);
   const { onlineUsers, activeChat, messages } = useSelector((state: RootState) => state.chat);
 
-  
-    // const onSelect = async() => {
-    //     dispatch({
-    //         type: types.activarChat,
-    //         payload: usuario.uid
-    //     });
-
-    //     // Cargar mensajes del chat
-
-    //     const resp = await fetchConToken(`mensajes/${ usuario.uid }`);
-
-    //     dispatch({
-    //         type: types.cargarMensajes,
-    //         payload: resp.mensajes
-    //     });
-
-    //     // Mover el scroll 
-    //     scrollToBottom('mensajes');
-    // };
-    
 
   if( !user ) return;
 
@@ -73,16 +53,24 @@ export const ChatPage = () => {
       </section>
       
       {/* Chat */}
-      <section className='basis-1/2 h-full w-full scrollbar-hide overflow-auto'>
+      <section className='basis-1/2 h-full w-full scrollbar-hide overflow-auto' id='messages'>
         <div className='scrollbar-hide overflow-auto w-full h-full'>
+
+          {
+            ( messages.length === 0 ) && (
+              <div className='w-full h-full flex items-center justify-center'>
+                <h3 className='text-center text-gray-500 text-3xl'>No messages yet</h3>
+              </div>
+            )
+          }
+
           <div className='w-full relative mb-14'>
             
             {
               messages.map( message => (
                 (message.from === user.id) 
-                  ? <OutgoingMessage text={ message.message } key={ message.message } />
-                  : <IncomingMessage text={ message.message } key={ message.message} />
-
+                  ? <OutgoingMessage message={ message } key={ message.id } />
+                  : <IncomingMessage message={ message } key={ message.id } />
               ))
             }
             
@@ -90,23 +78,17 @@ export const ChatPage = () => {
           <Formik 
             initialValues={{ message: '' }}
             onSubmit={ (values, { resetForm }) => {  
-              socket.emit('new-message', {
-                message: values.message,
-                to: activeChat,
-                from: user.id
-              })
 
-              dispatch({
-                type: 'NEW_MESSAGE',
-                payload: {
+              if( values.message.length > 0 ){
+                socket.emit('new-message', {
                   message: values.message,
                   to: activeChat,
                   from: user.id
-                }
-              })
-
-              
-              resetForm();
+                })
+  
+  
+                resetForm();
+              }
 
             }}
           >
@@ -132,6 +114,7 @@ export const ChatPage = () => {
         </div>
 
       </section>
+      
     </>
   )
 }

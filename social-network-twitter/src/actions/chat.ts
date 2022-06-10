@@ -1,6 +1,7 @@
-import { Message, User, LoadMessagesResponse } from '../interfaces/interfaces';
+import { User, LoadMessagesResponse } from '../interfaces/interfaces';
 import { AppDispatch } from '../store/store';
 import { fetchWithToken } from '../helpers/fetch';
+import { scrollToBottom } from '../helpers/scroll';
 
 
 
@@ -30,11 +31,11 @@ export const getMessages = (userId: string) => {
 					type: 'LOAD_MESSAGES',
 					payload: messages
 				});
+
+				// TODO: Revise
+				scrollToBottom('messages')
 			}
 
-			console.log(messages);
-			
-			
 		
 		} catch (error) {
 			console.log(error);

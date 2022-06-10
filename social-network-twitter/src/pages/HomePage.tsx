@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { handleLoadPosts, handleCreatePost } from '../actions/post';
 import { RootState } from '../store/store';
 import { Loader } from '../components/loader/Loader';
+import { getBookmarks } from '../actions/bookmark';
 
 const wrapper = {
   container: `w-screen h-screen bg-slate-900 flex flex-row`,
@@ -40,6 +41,12 @@ export const HomePage = () => {
     dispatch( handleLoadPosts() )    
   }, [ dispatch ])
 
+  useEffect(() => {
+  
+    dispatch( getBookmarks(user?.id || '') );
+  
+  }, [])
+  
 
   if( !posts ){
     return <Loader />
