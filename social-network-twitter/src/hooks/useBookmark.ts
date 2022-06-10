@@ -19,6 +19,7 @@ export const useBookmark = (id: string) => {
 	
 
 	return {
-		bookmark
+		bookmark,
+		getBookmarkById
 	}
 }

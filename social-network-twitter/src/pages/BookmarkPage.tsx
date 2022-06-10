@@ -4,7 +4,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../store/store';
 import { MainLayout } from "../layout/MainLayout";
 import { BookmarkCard } from "../components/bookmark";
-import { handleCreateBookmark } from '../actions/bookmark';
+import { handleCreateBookmark, handleChangeCurrentBookmark } from '../actions/bookmark';
+import Swal from 'sweetalert2/dist/sweetalert2.all.js';
+import { FormEvent } from 'react';
+import { Formik, Form } from 'formik';
+import { CustomSelect } from '../components/input/CustomSelect';
 
 export const BookmarkPage = () => {
 
@@ -31,6 +35,7 @@ export const BookmarkPage = () => {
       }
    }
 
+
    return (
       <MainLayout>
          <>
@@ -46,8 +51,48 @@ export const BookmarkPage = () => {
                }
 
             </div>
-         
-            <div className="w-full mt-5 text-center p-2">
+               <Formik
+                  initialValues={{
+                     currentBookmark: '',
+                     bookmarkId: ''
+                  }}
+                  onSubmit={ ({bookmarkId, currentBookmark}, { setValues }) => {
+                     
+                     const id = userBookmarks.filter(item => item.folder === currentBookmark )[0].id;
+
+                     if( id ){
+                        setValues({ currentBookmark, bookmarkId: id });
+                     }
+
+                     dispatch( handleChangeCurrentBookmark( bookmarkId ));
+                     Swal.fire('Done!', 'Current bookmark succesfully changed', 'success');
+                  }}
+                  >
+                  {  
+                     ({ setValues }) => (                     
+                           <Form className='flex justify-center my-4 items-center'>
+                              <h3 className='text-xl text-gray-500 pr-3'>Your current bookmark: </h3>
+                                 <CustomSelect
+                                    label=''
+                                    name='currentBookmark'
+                                 >
+                                    <option defaultValue=''>Open this select menu</option>
+                                    {
+                                       userBookmarks.map( (bookmark) => (
+                                          <option key={ bookmark.id }>{ bookmark.folder }</option>
+                                       ))
+                                    }   
+                                 </CustomSelect>
+                              <button 
+                                 className='bg-sky-500 text-white text- px-5 py-1 rounded-lg'
+                                 type="submit"
+                              >Save</button>
+                           </Form>                        
+
+                     )
+                  }
+               </Formik>
+            <div className="w-full text-center p-2">
               <button 
                  className="bg-slate-800 p-2 pr-4 pl-4 text-xl text-white hover:bg-slate-700 cursor-pointer"
                  onClick={toggle}

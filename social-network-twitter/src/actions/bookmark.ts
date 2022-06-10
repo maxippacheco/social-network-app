@@ -52,3 +52,30 @@ export const handleCreateBookmark = ( name: string ) => {
 
 	}
 }
+
+
+export const handleChangeCurrentBookmark = ( bookmarkId: string ) => ({
+	type: '[Bookmark] - CURRENT BOOKMARK',
+	payload: bookmarkId
+})
+
+
+export const handleDeletePostAction = (bookmarkId: string, postId: string) => {
+	return async( dispatch: AppDispatch ) => {
+
+		try {
+			const { ok, bookmark }: SingleBookmarkResponse = await fetchWithToken({ data: { postId }, endpoint: `bookmarks/${bookmarkId}/${postId}`, method: 'DELETE' });
+	
+			if( ok ){
+				dispatch({
+					type: '[Bookmark] - DELETE POST FROM BOOKMARK',
+					payload: {
+						userBookmarks: bookmark
+					}
+				})
+			}
+		}catch (error) {
+			console.log(error);
+		}
+	}
+}

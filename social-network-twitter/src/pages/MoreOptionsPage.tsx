@@ -35,7 +35,8 @@ export const MoreOptionsPage = () => {
 		<MainLayout>
 			<div className='mt-5 ml-5'>
 				<h1 className='mb-5 text-5xl text-white font-bold'>More options</h1>
-				<h2 className='text-white mb-4 text-3xl'>Edit user</h2>
+				<h2 className='text-white text-3xl'>Edit user</h2>
+				<small className='text-gray-600'>It can take a few seconds...</small>
 
 				<Formik
 					initialValues={{
