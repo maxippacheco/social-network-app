@@ -64,7 +64,6 @@ export const Post = ({ post, onClick }: PostProps) => {
 								<Icon 
 									onClick={ () => sendAction( name.iconName ) }	
 									name={ name } 
-									// TODO: RENDER THE COLOR INSTANTLY AND NOT DEPENDING ON THE STATE
 									className={ `${ className } ${ activeColor( name.iconName ) } ` }
 									size={ size } 
 									key={ name.iconName }

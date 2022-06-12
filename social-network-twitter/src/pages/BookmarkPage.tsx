@@ -60,12 +60,16 @@ export const BookmarkPage = () => {
                      
                      const id = userBookmarks.filter(item => item.folder === currentBookmark )[0].id;
 
+                     // todo: repair this
                      if( id ){
                         setValues({ currentBookmark, bookmarkId: id });
+                        
+                        if( bookmarkId ){
+                           dispatch( handleChangeCurrentBookmark( bookmarkId ));
+                           Swal.fire('Done!', 'Current bookmark succesfully changed', 'success');
+                        }
                      }
 
-                     dispatch( handleChangeCurrentBookmark( bookmarkId ));
-                     Swal.fire('Done!', 'Current bookmark succesfully changed', 'success');
                   }}
                   >
                   {  
@@ -76,7 +80,7 @@ export const BookmarkPage = () => {
                                     label=''
                                     name='currentBookmark'
                                  >
-                                    <option defaultValue=''>Open this select menu</option>
+                                    {/* <option}>Open this select menu</option> */}
                                     {
                                        userBookmarks.map( (bookmark) => (
                                           <option key={ bookmark.id }>{ bookmark.folder }</option>

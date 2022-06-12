@@ -16,6 +16,7 @@ type BookmarkActionType =
 	| { type: '[Bookmark] - CREATE BOOKMARK', payload: { userBookmarks: Bookmark } }
 	| { type : '[Bookmark] - CURRENT BOOKMARK', payload: string }
 	| { type: '[Bookmark] - DELETE POST FROM BOOKMARK', payload: { userBookmarks: Bookmark } }
+	| { type: '[Bookmark] - SAVE POST FROM BOOKMARK', payload: { userBookmarks: Bookmark } }
 ;
 
 
@@ -42,6 +43,7 @@ export const bookmarkReducer = ( state: BookmarkState = BookMarkInitialState, ac
 				currentBookmark: action.payload
 			}
 
+		case '[Bookmark] - SAVE POST FROM BOOKMARK':
 		case '[Bookmark] - DELETE POST FROM BOOKMARK':
 			// TODO: Implement
 			// const isValid = state.userBookmarks.map( ({ posts }) => posts.map( post => post.id  ).find( () => action.payload.userBookmarks.posts.map( post => post.id ) ) ) ? true : false;
@@ -49,7 +51,8 @@ export const bookmarkReducer = ( state: BookmarkState = BookMarkInitialState, ac
 				...state,
 				userBookmarks: state.userBookmarks.map( bookmark => bookmark.id === action.payload.userBookmarks.id ? action.payload.userBookmarks : bookmark )
 			}
-			
+
+	
 			
 	 	default:
 		 	return state;
