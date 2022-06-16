@@ -17,6 +17,7 @@ export const ChatPage = () => {
 
   if( !user ) return;
 
+
   return (
     <>
       <Navbar />
@@ -53,8 +54,8 @@ export const ChatPage = () => {
       </section>
       
       {/* Chat */}
-      <section className='basis-1/2 h-full w-full scrollbar-hide overflow-auto' id='messages'>
-        <div className='scrollbar-hide overflow-auto w-full h-full'>
+      <section className='basis-1/2 h-full w-full scrollbar-hide overflow-auto'>
+        <div className='scrollbar-hide overflow-auto w-full h-full' id='messages'>
 
           {
             ( messages.length === 0 ) && (

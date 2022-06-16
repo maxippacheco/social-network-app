@@ -103,12 +103,13 @@ export const usePost = ( post: Post ) => {
 	useEffect(() => {
 		// userBookmarks.map( bookmark => bookmark.posts.filter( item => item._id === post.id )  )
 		
-		if( userBookmarks.find( item => item.posts.find( postB => postB._id === post.id ) ) ){
+		if( userBookmarks.find( item => item.posts.find( postB => postB._id === post.id ) ) ||  userBookmarks.find( item => item.posts.find( postB => postB._id === post._id ) )){
+			console.log(post);
 			setSave(true);
 		}else{
 			setSave(false);
 		}
-	
+		
 		
 	}, [userBookmarks])
 

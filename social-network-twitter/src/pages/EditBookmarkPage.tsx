@@ -81,7 +81,7 @@ export const EditBookmarkPage = () => {
 						{
 							bookmark.posts?.map(post => (
 								<div className='flex flex-row' key={ post._id }>
-											
+									
 									{
 										openSelect && (
 											<div className=' flex items-center p-2.5 border-r border-r-gray-600 border-b border-b-gray-600'>
