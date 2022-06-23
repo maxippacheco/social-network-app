@@ -13,7 +13,7 @@ export const Search = () => {
 	
 	return (
 		<>
-			<section className={ wrapper.trendings__container }>
+			<section className={ `${ wrapper.trendings__container } xl:basis-1/2 sm:hidden xl:block` }>
 				<div className={ wrapper.trendings__search_container }>
 					<NavIcon.Icon name={ faSearch } size='lg' className={ wrapper.trendings__search_icon } />
 					<input type="text" className={ wrapper.trendings__search_input } placeholder="Search something" />

@@ -27,10 +27,10 @@ export const LoginPage = () => {
   }
 
   return (
-	  <div className={ auth_wrapper.auth__container }>
-      <img src={ loginBg } className={ auth_wrapper.auth__image } />
+	  <div className={ `${ auth_wrapper.auth__container }` }>
+      <img src={ loginBg } className={ `${ auth_wrapper.auth__image}` } />
 
-      <div className={ auth_wrapper.auth__side_container }>
+      <div className={ `${ auth_wrapper.auth__side_container }` }>
         <div className={ auth_wrapper.auth__form_container }>
           <h1 className={ auth_wrapper.auth__form_title }>Login</h1>
           <Formik

@@ -57,7 +57,7 @@ export const HomePage = () => {
         
         <Navbar />
 
-        <section className={ wrapper.post__container }>
+        <section className={ `${ wrapper.post__container } xl:basis-1/2 sm:basis-10/12` }>
           <Formik
             initialValues={{
               post: ''

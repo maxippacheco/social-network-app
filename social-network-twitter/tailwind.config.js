@@ -7,6 +7,11 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    screens:{
+      'sm': '490px',
+      'md': '780px', 
+      'xl': '1280px',
+    }
   },
   plugins: [
       plugin(function({ addUtilities }) {
