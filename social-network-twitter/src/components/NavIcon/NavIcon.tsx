@@ -23,7 +23,7 @@ export const NavIcon = ({ children, hover, cursor, icon, onClick }: Props) => {
       icon
     }}>
       <div 
-        className={`text-4xl m-4 xl:p-4 sm:p-3.5 text-white flex flex-row items-center hover:${ cursor } hover:${ hover } hover:rounded-full`}
+        className={`text-4xl m-4 xl:p-4 sm:p-2.5 text-white flex flex-row items-center hover:${ cursor } hover:${ hover } hover:rounded-full`}
         onClick={ onClick }
       >
         { children }
