@@ -5,7 +5,7 @@ import { getMessages, handleActiveChat } from '../../actions/chat';
 
 export const SideBarChatItem = ({ user }: { user: User }) => {
   
-  const dispatch = useDispatch();
+  const dispatch: any = useDispatch();
 
 
   const activeChat = () => {
@@ -14,10 +14,10 @@ export const SideBarChatItem = ({ user }: { user: User }) => {
 
   const onSelect = () => {
     activeChat();
-
     dispatch( getMessages( user.id ) );
-  }
 
+  }
+  
   return (
     <div className='w-full h-28 flex flex-row items-center hover:bg-slate-700 hover:cursor-pointer' onClick={ onSelect }>
       <div className='relative'>
