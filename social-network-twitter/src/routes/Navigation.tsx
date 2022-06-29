@@ -15,7 +15,7 @@ import { animateScroll } from 'react-scroll';
 
 export const Navigation = () => {
 
-	const dispatch = useDispatch();
+	const dispatch: any = useDispatch();
 
 	const wrapper = {
 		container: `w-screen h-screen bg-slate-900 flex flex-row`,

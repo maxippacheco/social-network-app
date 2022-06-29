@@ -13,7 +13,7 @@ type JSXElement = () => JSX.Element;
 export interface Route {
 	to: string;
 	path: string;
-	Component: JSXElement; //IF want to add lazy loading LazyExoticComponent<JSXComponent>
+	Component: JSXElement | any; //IF want to add lazy loading LazyExoticComponent<JSXComponent>
 	name: string;
 	restriction: 'public' | 'private';
 }

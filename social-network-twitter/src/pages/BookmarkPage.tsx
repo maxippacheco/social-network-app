@@ -15,7 +15,7 @@ export const BookmarkPage = () => {
    const [isOpened, setIsOpened] = useState(false);
    const [inputValue, setInputValue] = useState('');
    
-   const dispatch = useDispatch();
+   const dispatch: any = useDispatch();
    const { userBookmarks } = useSelector( (state: RootState) => state.bookmarks);
 
    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
