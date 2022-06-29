@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../store/store';
+import { RootState, AppDispatch } from '../store/store';
 import { handleFollowUser, handleUnfollowUser } from '../actions/auth';
 import { User } from '../interfaces/interfaces';
 
 export const useFollow = (userToFollow: User) => {
 
   const user_inSession = useSelector( ( state: RootState) => state.auth );
-  const dispatch = useDispatch();
+  const dispatch: any = useDispatch();
 
   const [ isFollowed, setIsFollowed ] = useState( false );
 

@@ -11,7 +11,7 @@ export const usePost = ( post: Post ) => {
 	const [isRetweeted, setRetweeted] = useState(false);
 	const [isSave, setSave] = useState(false);
 
-	const dispatch = useDispatch();
+	const dispatch: any = useDispatch();
 	const { user } = useSelector((state: RootState) => state.auth);
 	const { currentBookmark, userBookmarks } = useSelector((state: RootState) => state.bookmarks);
 

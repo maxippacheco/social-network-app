@@ -9,7 +9,6 @@ import { RootState } from '../store/store';
 
 export const ChatPage = () => {
 
-  const dispatch = useDispatch()
   const { user } = useSelector((state: RootState) => state.auth);  
   const { socket } = useSelector((state: RootState) => state.socket);
   const { onlineUsers, activeChat, messages } = useSelector((state: RootState) => state.chat);

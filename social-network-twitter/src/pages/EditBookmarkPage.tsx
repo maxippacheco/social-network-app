@@ -15,7 +15,7 @@ export const EditBookmarkPage = () => {
 
 	const { id } = useParams();
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
+	const dispatch: any = useDispatch();
 	const { userBookmarks } = useSelector( (state: RootState) => state.bookmarks );
 	// const { bookmark } = useBookmark(id || '');
 

@@ -9,7 +9,7 @@ import { CustomInput } from '../components/input/CustomInput';
 
 export const RegisterPage = () => {
 
-  const dispatch = useDispatch();
+  const dispatch: any = useDispatch();
 
   return (
     <div className={auth_wrapper.auth__container}>

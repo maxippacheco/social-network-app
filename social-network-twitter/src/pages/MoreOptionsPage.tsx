@@ -14,7 +14,7 @@ import { handleDisconnectSocket } from '../actions/socket';
 
 export const MoreOptionsPage = () => {
   
-	const dispatch = useDispatch();
+	const dispatch: any = useDispatch();
 	const { user } = useSelector((state: RootState) => state.auth);
 
 	const cloudURL = import.meta.env.VITE_CLOUDINARY_URL;

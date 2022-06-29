@@ -18,7 +18,7 @@ export const LoginPage = () => {
 
   // TODO:RESPONSIVE
 
-  const dispatch = useDispatch();
+  const dispatch: any = useDispatch();
 
   const googleResponse = ( response: GoogleLoginResponse | any ) => {
 

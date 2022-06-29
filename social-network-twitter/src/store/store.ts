@@ -2,6 +2,7 @@ import { applyMiddleware, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import { rootReducer } from '../reducers/rootReducer';
+import { useDispatch } from 'react-redux';
 
 
 
@@ -12,6 +13,8 @@ export const store = createStore(
 	)
 	
 )
+
+// export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
 
 // type for the reducers
 export type RootState = ReturnType<typeof store.getState>;

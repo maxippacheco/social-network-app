@@ -1,14 +1,14 @@
 import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Dispatch } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { like, unlike, retweet, removeRetweet } from '../actions/post';
 import { Post as PostInterface } from '../interfaces/interfaces';
-import { RootState } from '../store/store';
+import { RootState, AppDispatch } from '../store/store';
 
 export const useCommentPost = () => {
 
 	const { postId } = useParams();
-	const dispatch = useDispatch();
+	const dispatch:any = useDispatch();
 	const { posts } = useSelector( (state: RootState) => state.post );	
 	const { user } = useSelector( (state: RootState) => state.auth );	
 
