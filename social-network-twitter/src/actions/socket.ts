@@ -9,7 +9,7 @@ export const handleConnectSocket = () => {
 
 		if (!token) return;
 
-		const socket = io(`${ import.meta.env.VITE_API_URL }`, {
+		const socket = io(`https://twitter-clone-mp.herokuapp.com/api`, {
 			query: {
 				token
 			},
