@@ -9,7 +9,7 @@ export const handleConnectSocket = () => {
 
 		if (!token) return;
 
-		const socket = io("http://localhost:8080", {
+		const socket = io(`${ import.meta.env.VITE_API_URL }`, {
 			query: {
 				token
 			},
