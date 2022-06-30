@@ -9,7 +9,7 @@ export const handleConnectSocket = () => {
 
 		if (!token) return;
 
-		const socket = io(`https://twitter-clone-mp.herokuapp.com/api`, {
+		const socket = io(`https://twitter-clone-mp.herokuapp.com`, {
 			query: {
 				token
 			},
